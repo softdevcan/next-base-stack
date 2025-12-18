@@ -1,0 +1,153 @@
+{
+  "common": {
+    "appName": "Next Base Stack",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit"
+  },
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "account": "Account",
+    "billing": "Billing",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy"
+  },
+  "landing": {
+    "title": "Launch Your Modern Web App Fast",
+    "subtitle": "Full-featured launchpad powered by Next.js, React 19, PostgreSQL, and Auth.js",
+    "cta": "Get Started",
+    "features": {
+      "title": "Features",
+      "auth": {
+        "title": "Secure Authentication",
+        "description": "Ready-to-use authentication system with Auth.js v5"
+      },
+      "i18n": {
+        "title": "Multi-language Support",
+        "description": "URL-based language routing with next-intl"
+      },
+      "db": {
+        "title": "Modern Database",
+        "description": "Type-safe queries with PostgreSQL 18 and Drizzle ORM"
+      },
+      "ui": {
+        "title": "Beautiful UI",
+        "description": "Modern design with shadcn/ui and Tailwind CSS"
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Sign In to Your Account",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign In",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "forgotPassword": "Forgot password?",
+      "orContinueWith": "Or continue with",
+      "continueWithGoogle": "Continue with Google",
+      "continueWithGithub": "Continue with GitHub"
+    },
+    "register": {
+      "title": "Create New Account",
+      "name": "Full Name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Sign Up",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "orContinueWith": "Or continue with",
+      "continueWithGoogle": "Continue with Google",
+      "continueWithGithub": "Continue with GitHub"
+    },
+    "errors": {
+      "invalidCredentials": "Invalid email or password",
+      "emailExists": "This email is already in use",
+      "passwordMismatch": "Passwords don't match",
+      "required": "This field is required"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back, {name}!",
+    "stats": {
+      "users": "Users",
+      "revenue": "Revenue",
+      "orders": "Orders",
+      "growth": "Growth"
+    }
+  },
+  "profile": {
+    "title": "Profile Settings",
+    "subtitle": "Manage your profile information",
+    "name": "Full Name",
+    "email": "Email",
+    "avatar": "Profile Picture",
+    "updateSuccess": "Profile updated successfully"
+  },
+  "account": {
+    "title": "Account Settings",
+    "subtitle": "Manage your account security and preferences",
+    "password": {
+      "title": "Change Password",
+      "current": "Current Password",
+      "new": "New Password",
+      "confirm": "Confirm New Password"
+    },
+    "danger": {
+      "title": "Danger Zone",
+      "deleteAccount": "Delete Account",
+      "deleteWarning": "This action cannot be undone!"
+    }
+  },
+  "billing": {
+    "title": "Billing & Subscription",
+    "subtitle": "Manage your payment methods and subscription",
+    "plan": {
+      "current": "Current Plan",
+      "free": "Free",
+      "pro": "Pro",
+      "enterprise": "Enterprise"
+    },
+    "payment": {
+      "method": "Payment Method",
+      "addCard": "Add Card"
+    }
+  },
+  "legal": {
+    "terms": {
+      "title": "Terms of Service",
+      "lastUpdated": "Last Updated: {date}"
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "lastUpdated": "Last Updated: {date}"
+    }
+  },
+  "errors": {
+    "404": {
+      "title": "Page Not Found",
+      "description": "The page you're looking for doesn't exist",
+      "backHome": "Back to Home"
+    },
+    "500": {
+      "title": "Server Error",
+      "description": "Something went wrong",
+      "tryAgain": "Try Again"
+    }
+  }
+}

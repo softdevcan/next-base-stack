@@ -1,0 +1,153 @@
+{
+  "common": {
+    "appName": "Next Base Stack",
+    "loading": "Yükleniyor...",
+    "error": "Bir hata oluştu",
+    "success": "Başarılı",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "back": "Geri",
+    "next": "İleri",
+    "submit": "Gönder"
+  },
+  "nav": {
+    "home": "Ana Sayfa",
+    "dashboard": "Panel",
+    "profile": "Profil",
+    "account": "Hesap",
+    "billing": "Ödeme",
+    "login": "Giriş Yap",
+    "register": "Kayıt Ol",
+    "logout": "Çıkış Yap",
+    "terms": "Kullanım Koşulları",
+    "privacy": "Gizlilik Politikası"
+  },
+  "landing": {
+    "title": "Modern Web Uygulamanızı Hızla Başlatın",
+    "subtitle": "Next.js, React 19, PostgreSQL ve Auth.js ile güçlendirilmiş tam donanımlı launchpad",
+    "cta": "Hemen Başla",
+    "features": {
+      "title": "Özellikler",
+      "auth": {
+        "title": "Güvenli Kimlik Doğrulama",
+        "description": "Auth.js v5 ile hazır authentication sistemi"
+      },
+      "i18n": {
+        "title": "Çok Dilli Destek",
+        "description": "next-intl ile URL tabanlı dil yönlendirme"
+      },
+      "db": {
+        "title": "Modern Veritabanı",
+        "description": "PostgreSQL 18 ve Drizzle ORM ile tip güvenli sorgular"
+      },
+      "ui": {
+        "title": "Şık Arayüz",
+        "description": "shadcn/ui ve Tailwind CSS ile modern tasarım"
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Hesabınıza Giriş Yapın",
+      "email": "E-posta",
+      "password": "Şifre",
+      "submit": "Giriş Yap",
+      "noAccount": "Hesabınız yok mu?",
+      "signUp": "Kayıt olun",
+      "forgotPassword": "Şifremi unuttum",
+      "orContinueWith": "Veya şununla devam et",
+      "continueWithGoogle": "Google ile devam et",
+      "continueWithGithub": "GitHub ile devam et"
+    },
+    "register": {
+      "title": "Yeni Hesap Oluştur",
+      "name": "Ad Soyad",
+      "email": "E-posta",
+      "password": "Şifre",
+      "confirmPassword": "Şifre Tekrar",
+      "submit": "Kayıt Ol",
+      "hasAccount": "Zaten hesabınız var mı?",
+      "signIn": "Giriş yapın",
+      "orContinueWith": "Veya şununla devam et",
+      "continueWithGoogle": "Google ile devam et",
+      "continueWithGithub": "GitHub ile devam et"
+    },
+    "errors": {
+      "invalidCredentials": "Geçersiz e-posta veya şifre",
+      "emailExists": "Bu e-posta adresi zaten kullanımda",
+      "passwordMismatch": "Şifreler eşleşmiyor",
+      "required": "Bu alan zorunludur"
+    }
+  },
+  "dashboard": {
+    "title": "Panel",
+    "welcome": "Hoş geldin, {name}!",
+    "stats": {
+      "users": "Kullanıcılar",
+      "revenue": "Gelir",
+      "orders": "Siparişler",
+      "growth": "Büyüme"
+    }
+  },
+  "profile": {
+    "title": "Profil Ayarları",
+    "subtitle": "Profil bilgilerinizi yönetin",
+    "name": "Ad Soyad",
+    "email": "E-posta",
+    "avatar": "Profil Fotoğrafı",
+    "updateSuccess": "Profil başarıyla güncellendi"
+  },
+  "account": {
+    "title": "Hesap Ayarları",
+    "subtitle": "Hesap güvenliği ve tercihlerinizi yönetin",
+    "password": {
+      "title": "Şifre Değiştir",
+      "current": "Mevcut Şifre",
+      "new": "Yeni Şifre",
+      "confirm": "Yeni Şifre Tekrar"
+    },
+    "danger": {
+      "title": "Tehlikeli Bölge",
+      "deleteAccount": "Hesabı Sil",
+      "deleteWarning": "Bu işlem geri alınamaz!"
+    }
+  },
+  "billing": {
+    "title": "Ödeme ve Abonelik",
+    "subtitle": "Ödeme yöntemlerinizi ve aboneliğinizi yönetin",
+    "plan": {
+      "current": "Mevcut Plan",
+      "free": "Ücretsiz",
+      "pro": "Pro",
+      "enterprise": "Kurumsal"
+    },
+    "payment": {
+      "method": "Ödeme Yöntemi",
+      "addCard": "Kart Ekle"
+    }
+  },
+  "legal": {
+    "terms": {
+      "title": "Kullanım Koşulları",
+      "lastUpdated": "Son Güncelleme: {date}"
+    },
+    "privacy": {
+      "title": "Gizlilik Politikası",
+      "lastUpdated": "Son Güncelleme: {date}"
+    }
+  },
+  "errors": {
+    "404": {
+      "title": "Sayfa Bulunamadı",
+      "description": "Aradığınız sayfa mevcut değil",
+      "backHome": "Ana Sayfaya Dön"
+    },
+    "500": {
+      "title": "Sunucu Hatası",
+      "description": "Bir şeyler ters gitti",
+      "tryAgain": "Tekrar Dene"
+    }
+  }
+}

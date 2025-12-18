@@ -1,0 +1,29 @@
+import { useTranslations } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
+import { Navbar } from "@/components/navbar";
+
+export default async function TermsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = useTranslations("legal.terms");
+
+  return (
+    <>
+      <Navbar locale={locale} />
+      <div className="container mx-auto max-w-4xl px-4 py-12">
+        <h1 className="mb-4 text-4xl font-bold">{t("title")}</h1>
+        <p className="mb-8 text-gray-600">{t("lastUpdated", { date: "2025-12-18" })}</p>
+        <div className="prose prose-gray max-w-none">
+          <p>
+            This is a placeholder for your Terms of Service. You should replace this with your
+            actual terms and conditions.
+          </p>
+        </div>
+      </div>
+    </>
+  );
+}

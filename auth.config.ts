@@ -1,0 +1,76 @@
+import type { NextAuthConfig } from "next-auth";
+import Credentials from "next-auth/providers/credentials";
+import Google from "next-auth/providers/google";
+import GitHub from "next-auth/providers/github";
+import { z } from "zod";
+import { db } from "@/lib/db";
+import { users } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
+import { env } from "@/lib/env";
+
+export default {
+  providers: [
+    // Google OAuth
+    Google({
+      clientId: env.GOOGLE_CLIENT_ID!,
+      clientSecret: env.GOOGLE_CLIENT_SECRET!,
+    }),
+    // GitHub OAuth
+    GitHub({
+      clientId: env.GITHUB_CLIENT_ID!,
+      clientSecret: env.GITHUB_CLIENT_SECRET!,
+    }),
+    // Email/Password
+    Credentials({
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        const parsedCredentials = z
+          .object({
+            email: z.string().email(),
+            password: z.string().min(6),
+          })
+          .safeParse(credentials);
+
+        if (!parsedCredentials.success) return null;
+
+        const { email } = parsedCredentials.data;
+
+        // Find user
+        const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
+
+        if (!user) return null;
+
+        // TODO: Add password hashing and verification with bcrypt
+        // For now, this is a placeholder implementation
+
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          image: user.image,
+        };
+      },
+    }),
+  ],
+  pages: {
+    signIn: "/login",
+    error: "/login",
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token && session.user) {
+        session.user.id = token.id as string;
+      }
+      return session;
+    },
+  },
+} satisfies NextAuthConfig;
