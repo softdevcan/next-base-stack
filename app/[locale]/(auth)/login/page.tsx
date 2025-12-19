@@ -21,6 +21,14 @@ export default async function LoginPage({
         <div className="rounded-lg border bg-white p-8 shadow-sm">
           <LoginForm locale={locale} />
           <div className="mt-4 text-center text-sm">
+            <Link
+              href={`/${locale}/reset-password`}
+              className="text-gray-600 hover:underline"
+            >
+              {t("forgotPassword")}
+            </Link>
+          </div>
+          <div className="mt-4 text-center text-sm">
             <span className="text-gray-600">{t("noAccount")} </span>
             <Link
               href={`/${locale}/register`}

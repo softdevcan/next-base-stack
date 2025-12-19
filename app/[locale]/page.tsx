@@ -21,7 +21,7 @@ export default async function HomePage({
             {t("title")}
           </h1>
           <p className="mb-8 text-xl text-gray-600">{t("subtitle")}</p>
-          <button className="rounded-lg bg-gray-900 px-8 py-3 text-lg font-medium text-white transition hover:bg-gray-800">
+          <button type="button" className="rounded-lg bg-gray-900 px-8 py-3 text-lg font-medium text-white transition hover:bg-gray-800">
             {t("cta")}
           </button>
         </div>

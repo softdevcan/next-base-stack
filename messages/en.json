@@ -49,6 +49,19 @@
     }
   },
   "auth": {
+    "email": "Email",
+    "emailPlaceholder": "example@email.com",
+    "resetPassword": "Reset Password",
+    "resetPasswordDescription": "Enter your email to reset your password",
+    "sendResetLink": "Send Reset Link",
+    "backToLogin": "Back to login",
+    "verifyEmail": {
+      "success": "Email Verified",
+      "successMessage": "Your email has been successfully verified. You can now log in.",
+      "error": "Verification Error",
+      "noToken": "Invalid verification link",
+      "proceedToLogin": "Click to login"
+    },
     "login": {
       "title": "Sign In to Your Account",
       "email": "Email",
@@ -108,10 +121,52 @@
       "new": "New Password",
       "confirm": "Confirm New Password"
     },
+    "twoFactor": {
+      "title": "Two-Factor Authentication",
+      "subtitle": "Add an extra layer of security to your account",
+      "totpTitle": "Authenticator App (TOTP)",
+      "totpDescription": "Secure your account using Google Authenticator or similar app",
+      "enabled": "Two-factor authentication is enabled",
+      "enable": "Enable Two-Factor Authentication",
+      "disable": "Disable",
+      "setupDescription": "Enable two-factor authentication to add an extra layer of security to your account",
+      "step1": "Step 1: Scan QR Code",
+      "scanQR": "Scan this QR code with your authenticator app",
+      "manualEntry": "Manual entry",
+      "step2": "Step 2: Verify Code",
+      "enterCode": "Enter the 6-digit code from your authenticator app",
+      "verificationCode": "Verification Code",
+      "verify": "Verify",
+      "success": "Two-factor authentication successfully enabled!",
+      "backupCodesTitle": "Your Backup Codes",
+      "backupCodesDescription": "Save these codes in a safe place. You can use them to log in if you don't have access to your phone.",
+      "done": "Done",
+      "disableWarning": "Disabling two-factor authentication will make your account less secure.",
+      "confirmDisable": "Confirm Disable",
+      "cancel": "Cancel"
+    },
     "danger": {
       "title": "Danger Zone",
       "deleteAccount": "Delete Account",
       "deleteWarning": "This action cannot be undone!"
+    }
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "subtitle": "Manage system and users",
+    "stats": {
+      "totalUsers": "Total Users",
+      "verifiedUsers": "Verified Users",
+      "admins": "Admins"
+    },
+    "recentUsers": {
+      "title": "Recent Users",
+      "description": "Last 10 registered users"
+    },
+    "users": {
+      "title": "User Management",
+      "subtitle": "Manage user roles",
+      "allUsers": "All Users"
     }
   },
   "billing": {

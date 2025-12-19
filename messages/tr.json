@@ -49,6 +49,19 @@
     }
   },
   "auth": {
+    "email": "E-posta",
+    "emailPlaceholder": "ornek@email.com",
+    "resetPassword": "Şifre Sıfırla",
+    "resetPasswordDescription": "Şifrenizi sıfırlamak için e-posta adresinizi girin",
+    "sendResetLink": "Sıfırlama Linki Gönder",
+    "backToLogin": "Giriş sayfasına dön",
+    "verifyEmail": {
+      "success": "E-posta Doğrulandı",
+      "successMessage": "E-posta adresiniz başarıyla doğrulandı. Şimdi giriş yapabilirsiniz.",
+      "error": "Doğrulama Hatası",
+      "noToken": "Geçersiz doğrulama linki",
+      "proceedToLogin": "Giriş yapmak için tıklayın"
+    },
     "login": {
       "title": "Hesabınıza Giriş Yapın",
       "email": "E-posta",
@@ -108,10 +121,52 @@
       "new": "Yeni Şifre",
       "confirm": "Yeni Şifre Tekrar"
     },
+    "twoFactor": {
+      "title": "İki Faktörlü Doğrulama",
+      "subtitle": "Hesabınıza ekstra güvenlik katmanı ekleyin",
+      "totpTitle": "Authenticator App (TOTP)",
+      "totpDescription": "Google Authenticator veya benzeri bir uygulama kullanarak hesabınızı güvence altına alın",
+      "enabled": "İki faktörlü doğrulama aktif",
+      "enable": "İki Faktörlü Doğrulamayı Etkinleştir",
+      "disable": "Devre Dışı Bırak",
+      "setupDescription": "Hesabınıza ekstra bir güvenlik katmanı eklemek için iki faktörlü doğrulamayı etkinleştirin",
+      "step1": "Adım 1: QR Kodunu Tarayın",
+      "scanQR": "Authenticator uygulamanızla bu QR kodunu tarayın",
+      "manualEntry": "Manuel giriş",
+      "step2": "Adım 2: Kodu Doğrulayın",
+      "enterCode": "Authenticator uygulamanızdan 6 haneli kodu girin",
+      "verificationCode": "Doğrulama Kodu",
+      "verify": "Doğrula",
+      "success": "İki faktörlü doğrulama başarıyla etkinleştirildi!",
+      "backupCodesTitle": "Yedek Kodlarınız",
+      "backupCodesDescription": "Bu kodları güvenli bir yerde saklayın. Telefonunuza erişiminiz olmadığında giriş yapmak için kullanabilirsiniz.",
+      "done": "Tamam",
+      "disableWarning": "İki faktörlü doğrulamayı devre dışı bırakmak hesabınızı daha az güvenli hale getirir.",
+      "confirmDisable": "Devre Dışı Bırakmayı Onayla",
+      "cancel": "İptal"
+    },
     "danger": {
       "title": "Tehlikeli Bölge",
       "deleteAccount": "Hesabı Sil",
       "deleteWarning": "Bu işlem geri alınamaz!"
+    }
+  },
+  "admin": {
+    "title": "Yönetici Paneli",
+    "subtitle": "Sistemi yönetin ve kullanıcıları kontrol edin",
+    "stats": {
+      "totalUsers": "Toplam Kullanıcılar",
+      "verifiedUsers": "Doğrulanmış Kullanıcılar",
+      "admins": "Yöneticiler"
+    },
+    "recentUsers": {
+      "title": "Son Kullanıcılar",
+      "description": "En son kaydolan 10 kullanıcı"
+    },
+    "users": {
+      "title": "Kullanıcı Yönetimi",
+      "subtitle": "Kullanıcı rollerini yönetin",
+      "allUsers": "Tüm Kullanıcılar"
     }
   },
   "billing": {

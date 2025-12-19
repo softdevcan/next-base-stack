@@ -7,6 +7,7 @@ import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { env } from "@/lib/env";
+import bcrypt from "bcrypt";
 
 export default {
   providers: [
@@ -36,15 +37,24 @@ export default {
 
         if (!parsedCredentials.success) return null;
 
-        const { email } = parsedCredentials.data;
+        const { email, password } = parsedCredentials.data;
 
         // Find user
         const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
 
         if (!user) return null;
 
-        // TODO: Add password hashing and verification with bcrypt
-        // For now, this is a placeholder implementation
+        // Verify password with bcrypt
+        if (!user.password) return null; // OAuth users don't have password
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) return null;
+
+        // Check if email is verified
+        // NOTE: You can uncomment this to enforce email verification
+        // if (!user.emailVerified) {
+        //   throw new Error("Please verify your email before logging in");
+        // }
 
         return {
           id: user.id,

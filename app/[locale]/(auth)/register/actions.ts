@@ -5,6 +5,7 @@ import { users } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import bcrypt from "bcrypt";
 
 const registerSchema = z
   .object({
@@ -39,15 +40,33 @@ export async function registerAction(formData: FormData) {
     return { error: "Email already exists" };
   }
 
-  // TODO: Hash password with bcrypt
-  // const hashedPassword = await bcrypt.hash(password, 10);
+  // Hash password with bcrypt (salt rounds: 10)
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-  // Create user
-  await db.insert(users).values({
+  // Create user (email not verified yet)
+  const [newUser] = await db.insert(users).values({
     name,
     email,
-    // TODO: Store hashed password
+    password: hashedPassword,
+    emailVerified: null, // Will be set after verification
+  }).returning();
+
+  // Generate verification token
+  const { randomBytes } = await import("node:crypto");
+  const verificationToken = randomBytes(32).toString("hex");
+  const expires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+
+  // Store verification token
+  const { verificationTokens } = await import("@/lib/db/schema");
+  await db.insert(verificationTokens).values({
+    identifier: email,
+    token: verificationToken,
+    type: "email_verification",
+    expires,
   });
 
-  redirect("/login");
+  // TODO: Send verification email
+  // await sendVerificationEmail(email, verificationToken);
+
+  redirect("/login?message=verify-email");
 }

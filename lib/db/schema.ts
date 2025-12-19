@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, uuid, boolean, integer } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, uuid, integer } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
 // UUIDv7 function for PostgreSQL
@@ -13,8 +13,13 @@ export const users = pgTable("users", {
   id: uuid("id").defaultRandom().primaryKey(),
   name: text("name"),
   email: text("email").notNull().unique(),
+  password: text("password"), // Hashed password for credentials login
   emailVerified: timestamp("email_verified", { mode: "date" }),
   image: text("image"),
+  role: text("role").default("user").notNull(), // "user", "admin", "moderator"
+  twoFactorEnabled: text("two_factor_enabled").default("false"), // "false", "totp", "sms"
+  twoFactorSecret: text("two_factor_secret"), // TOTP secret (encrypted)
+  twoFactorBackupCodes: text("two_factor_backup_codes"), // JSON array of backup codes (hashed)
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
 });
@@ -58,6 +63,7 @@ export const sessions = pgTable("sessions", {
 export const verificationTokens = pgTable("verification_tokens", {
   identifier: text("identifier").notNull(),
   token: text("token").notNull().unique(),
+  type: text("type").notNull(), // 'email_verification' or 'password_reset'
   expires: timestamp("expires", { mode: "date" }).notNull(),
 });
 
