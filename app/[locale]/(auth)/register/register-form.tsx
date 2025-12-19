@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { GitHubIcon, GoogleIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { GoogleIcon, GitHubIcon } from "@/components/icons";
 import { signIn } from "next-auth/react";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { registerAction } from "./actions";
 
 export function RegisterForm({ locale }: { locale: string }) {
@@ -52,7 +52,9 @@ export function RegisterForm({ locale }: { locale: string }) {
 
   return (
     <form onSubmit={onSubmit} className="space-y-6">
-      {error && <div className="rounded-md bg-red-50 p-3 text-sm text-red-800">{error}</div>}
+      {error && (
+        <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">{error}</div>
+      )}
 
       <div className="space-y-2">
         <Label htmlFor="name">{t("name")}</Label>
@@ -111,7 +113,7 @@ export function RegisterForm({ locale }: { locale: string }) {
           <Separator />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-white px-2 text-muted-foreground">{t("orContinueWith")}</span>
+          <span className="bg-card px-2 text-muted-foreground">{t("orContinueWith")}</span>
         </div>
       </div>
 

@@ -1,10 +1,10 @@
 "use server";
 
 import { auth } from "@/auth";
+import { generateBackupCodes, generateTOTPSecret, verifyTOTPToken } from "@/lib/2fa";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
-import { generateTOTPSecret, verifyTOTPToken, generateBackupCodes } from "@/lib/2fa";
 import QRCode from "qrcode";
 
 export async function setup2FAAction() {
@@ -82,11 +82,7 @@ export async function disable2FAAction(formData: FormData) {
   }
 
   // Get user's 2FA secret
-  const [user] = await db
-    .select()
-    .from(users)
-    .where(eq(users.id, session.user.id))
-    .limit(1);
+  const [user] = await db.select().from(users).where(eq(users.id, session.user.id)).limit(1);
 
   if (!user?.twoFactorSecret) {
     return { success: false, error: "2FA not enabled" };

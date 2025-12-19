@@ -1,8 +1,8 @@
 "use server";
 
-import { requirePermission } from "@/lib/rbac";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
+import { requirePermission } from "@/lib/rbac";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 

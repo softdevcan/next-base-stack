@@ -17,6 +17,8 @@
     "dashboard": "Panel",
     "profile": "Profil",
     "account": "Hesap",
+    "security": "Güvenlik",
+    "settings": "Ayarlar",
     "billing": "Ödeme",
     "login": "Giriş Yap",
     "register": "Kayıt Ol",
@@ -107,19 +109,35 @@
   "profile": {
     "title": "Profil Ayarları",
     "subtitle": "Profil bilgilerinizi yönetin",
+    "personalInfo": "Kişisel Bilgiler",
+    "personalInfoDescription": "Kişisel bilgilerinizi güncelleyin",
     "name": "Ad Soyad",
     "email": "E-posta",
+    "emailReadonly": "E-posta değiştirilemez",
     "avatar": "Profil Fotoğrafı",
-    "updateSuccess": "Profil başarıyla güncellendi"
+    "bio": "Biyografi",
+    "bioPlaceholder": "Kendiniz hakkında bir şeyler yazın...",
+    "bioHint": "Maksimum 500 karakter",
+    "updateSuccess": "Profil başarıyla güncellendi",
+    "save": "Değişiklikleri Kaydet",
+    "saving": "Kaydediliyor...",
+    "manage": "Yönet",
+    "preferences": "Tercihler",
+    "preferencesDescription": "Dil, tema ve diğer tercihler"
   },
   "account": {
     "title": "Hesap Ayarları",
     "subtitle": "Hesap güvenliği ve tercihlerinizi yönetin",
     "password": {
       "title": "Şifre Değiştir",
+      "description": "Hesabınızı güvende tutmak için şifrenizi güncelleyin",
       "current": "Mevcut Şifre",
       "new": "Yeni Şifre",
-      "confirm": "Yeni Şifre Tekrar"
+      "confirm": "Yeni Şifre Tekrar",
+      "hint": "Şifre en az 8 karakter olmalıdır",
+      "changePassword": "Şifreyi Değiştir",
+      "changing": "Değiştiriliyor...",
+      "success": "Şifre başarıyla değiştirildi"
     },
     "twoFactor": {
       "title": "İki Faktörlü Doğrulama",
@@ -148,7 +166,17 @@
     "danger": {
       "title": "Tehlikeli Bölge",
       "deleteAccount": "Hesabı Sil",
-      "deleteWarning": "Bu işlem geri alınamaz!"
+      "deleteWarning": "Bu işlem geri alınamaz!",
+      "confirmTitle": "Kesinlikle emin misiniz?",
+      "confirmDescription": "Bu işlem geri alınamaz. Hesabınız kalıcı olarak silinecek ve verileriniz sunucularımızdan kaldırılacaktır.",
+      "passwordLabel": "Şifre",
+      "passwordPlaceholder": "Onaylamak için şifrenizi girin",
+      "confirmLabel": "Onaylamak için DELETE yazın",
+      "confirmHint": "Lütfen onaylamak için DELETE yazın (büyük harflerle)",
+      "confirmError": "Silme işlemini onaylamak için DELETE yazın",
+      "cancel": "İptal",
+      "deleting": "Siliniyor...",
+      "deleteSuccess": "Hesap başarıyla silindi"
     }
   },
   "admin": {

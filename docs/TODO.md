@@ -2,6 +2,15 @@
 
 This document tracks planned features and improvements for the Next.js base stack.
 
+## 🎯 **CURRENT PRIORITY TASKS** (In Progress)
+
+### Phase 1: Immediate Implementation (Next 3 Features)
+1. ✅ **Welcome Email** - Send welcome email after email verification
+2. ✅ **Rate Limiting** - Protect auth endpoints from brute force attacks (5 req/10s)
+3. ✅ **Account Deletion** - Implement user account deletion (GDPR compliance)
+
+---
+
 ## 🔐 Authentication & Security
 
 - [x] **Password Hashing**
@@ -210,17 +219,17 @@ This document tracks planned features and improvements for the Next.js base stac
 
 ## 🔒 Compliance
 
-- [ ] **GDPR Compliance**
-  - Data export functionality
-  - Right to be forgotten
-  - Cookie consent banner
-  - Privacy policy updates
+- [x] **GDPR Compliance**
+  - [ ] Data export functionality
+  - [x] Right to be forgotten (Account deletion)
+  - [ ] Cookie consent banner
+  - [ ] Privacy policy updates
 
 - [ ] **Security Audit**
-  - Security headers
-  - Rate limiting
-  - CSRF protection
-  - SQL injection prevention
+  - [ ] Security headers
+  - [x] Rate limiting
+  - [ ] CSRF protection
+  - [x] SQL injection prevention (Using Drizzle ORM)
 
 ## 🎁 Nice-to-Have Features
 

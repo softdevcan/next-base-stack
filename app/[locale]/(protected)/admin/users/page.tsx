@@ -1,8 +1,8 @@
-import { requirePermission } from "@/lib/rbac";
-import { getTranslations } from "next-intl/server";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
+import { requirePermission } from "@/lib/rbac";
+import { getTranslations } from "next-intl/server";
 import { UpdateRoleForm } from "./update-role-form";
 
 export default async function AdminUsersPage() {
@@ -49,12 +49,12 @@ export default async function AdminUsersPage() {
                   <p className="text-sm text-muted-foreground">{user.email}</p>
                   <div className="mt-1 flex gap-2">
                     {user.emailVerified && (
-                      <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-800">
+                      <span className="rounded-full bg-green-500/10 px-2 py-0.5 text-xs text-green-600 dark:bg-green-500/20 dark:text-green-400">
                         ✓ Verified
                       </span>
                     )}
                     {user.twoFactorEnabled === "totp" && (
-                      <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-800">
+                      <span className="rounded-full bg-blue-500/10 px-2 py-0.5 text-xs text-blue-600 dark:bg-blue-500/20 dark:text-blue-400">
                         🔒 2FA
                       </span>
                     )}

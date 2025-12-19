@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useTranslations } from "next-intl";
-import { setup2FAAction, verify2FASetupAction } from "./actions";
 import Image from "next/image";
+import { useState } from "react";
+import { setup2FAAction, verify2FASetupAction } from "./actions";
 
 export function Enable2FAForm({ userEmail }: { userEmail: string }) {
   const t = useTranslations("account.twoFactor");
@@ -106,8 +106,8 @@ export function Enable2FAForm({ userEmail }: { userEmail: string }) {
   if (step === "verify") {
     return (
       <div className="space-y-4">
-        <div className="rounded-lg border border-green-200 bg-green-50 p-4">
-          <p className="font-medium text-green-800">✓ {t("success")}</p>
+        <div className="rounded-lg bg-green-500/10 border border-green-500/20 p-4">
+          <p className="font-medium text-green-600 dark:text-green-400">✓ {t("success")}</p>
         </div>
 
         <div>
@@ -117,8 +117,8 @@ export function Enable2FAForm({ userEmail }: { userEmail: string }) {
 
         <div className="rounded-lg bg-muted p-4">
           <div className="grid grid-cols-2 gap-2">
-            {backupCodes.map((code, index) => (
-              <code key={index} className="text-sm">
+            {backupCodes.map((code) => (
+              <code key={code} className="text-sm">
                 {code}
               </code>
             ))}

@@ -1,9 +1,9 @@
-import { requireAdmin } from "@/lib/rbac";
-import { getTranslations } from "next-intl/server";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
+import { requireAdmin } from "@/lib/rbac";
 import { sql } from "drizzle-orm";
+import { getTranslations } from "next-intl/server";
 
 export default async function AdminDashboardPage() {
   // Require admin role
@@ -88,17 +88,18 @@ export default async function AdminDashboardPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <span
-                    className={`rounded-full px-2 py-1 text-xs ${user.role === "admin"
-                        ? "bg-red-100 text-red-800"
+                    className={`rounded-full px-2 py-1 text-xs ${
+                      user.role === "admin"
+                        ? "bg-destructive/10 text-destructive dark:bg-destructive/20"
                         : user.role === "moderator"
-                          ? "bg-blue-100 text-blue-800"
-                          : "bg-gray-100 text-gray-800"
-                      }`}
+                          ? "bg-blue-500/10 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400"
+                          : "bg-muted text-muted-foreground"
+                    }`}
                   >
                     {user.role}
                   </span>
                   {user.emailVerified && (
-                    <span className="rounded-full bg-green-100 px-2 py-1 text-xs text-green-800">
+                    <span className="rounded-full bg-green-500/10 px-2 py-1 text-xs text-green-600 dark:bg-green-500/20 dark:text-green-400">
                       ✓ Verified
                     </span>
                   )}

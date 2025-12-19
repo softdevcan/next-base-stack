@@ -1,18 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { GitHubIcon, GoogleIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { GoogleIcon, GitHubIcon } from "@/components/icons";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
 
 export function LoginForm({ locale }: { locale: string }) {
   const t = useTranslations("auth.login");
-  const router = useRouter();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -39,27 +37,23 @@ export function LoginForm({ locale }: { locale: string }) {
     const password = formData.get("password") as string;
 
     try {
-      const result = await signIn("credentials", {
+      await signIn("credentials", {
         email,
         password,
-        redirect: false,
+        callbackUrl: `/${locale}/dashboard`,
       });
-
-      if (result?.error) {
-        setError(t("errors.invalidCredentials"));
-      } else {
-        router.push(`/${locale}/dashboard`);
-      }
+      // signIn with callbackUrl will redirect automatically on success
     } catch (error) {
       setError(t("errors.invalidCredentials"));
-    } finally {
       setLoading(false);
     }
   }
 
   return (
     <form onSubmit={onSubmit} className="space-y-6">
-      {error && <div className="rounded-md bg-red-50 p-3 text-sm text-red-800">{error}</div>}
+      {error && (
+        <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">{error}</div>
+      )}
 
       <div className="space-y-2">
         <Label htmlFor="email">{t("email")}</Label>
@@ -94,7 +88,7 @@ export function LoginForm({ locale }: { locale: string }) {
           <Separator />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-white px-2 text-muted-foreground">{t("orContinueWith")}</span>
+          <span className="bg-card px-2 text-muted-foreground">{t("orContinueWith")}</span>
         </div>
       </div>
 

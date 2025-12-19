@@ -1,6 +1,6 @@
-import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { Navbar } from "@/components/navbar";
+import { redirect } from "next/navigation";
 
 export default async function ProtectedLayout({
   children,
@@ -17,7 +17,7 @@ export default async function ProtectedLayout({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <Navbar locale={locale} />
       {children}
     </div>

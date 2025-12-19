@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/db";
 import { users, verificationTokens } from "@/lib/db/schema";
-import { eq, and } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 
 export async function verifyEmailAction(token: string) {
   if (!token) {
@@ -14,10 +14,7 @@ export async function verifyEmailAction(token: string) {
     .select()
     .from(verificationTokens)
     .where(
-      and(
-        eq(verificationTokens.token, token),
-        eq(verificationTokens.type, "email_verification")
-      )
+      and(eq(verificationTokens.token, token), eq(verificationTokens.type, "email_verification")),
     )
     .limit(1);
 
@@ -37,13 +34,14 @@ export async function verifyEmailAction(token: string) {
   }
 
   // Update user's emailVerified field
-  await db
-    .update(users)
-    .set({ emailVerified: new Date() })
-    .where(eq(users.id, user.id));
+  await db.update(users).set({ emailVerified: new Date() }).where(eq(users.id, user.id));
 
   // Delete used token
   await db.delete(verificationTokens).where(eq(verificationTokens.token, token));
+
+  // Send welcome email after successful verification
+  const { sendWelcomeEmail } = await import("@/lib/mail");
+  await sendWelcomeEmail(user.email, user.name || undefined);
 
   return { success: true };
 }
@@ -68,8 +66,8 @@ export async function resendVerificationEmailAction(email: string) {
     .where(
       and(
         eq(verificationTokens.identifier, email),
-        eq(verificationTokens.type, "email_verification")
-      )
+        eq(verificationTokens.type, "email_verification"),
+      ),
     );
 
   // Generate new verification token

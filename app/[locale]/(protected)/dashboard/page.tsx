@@ -1,5 +1,5 @@
-import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getCurrentUser } from "@/lib/db/queries";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 export default async function DashboardPage({
   params,
@@ -14,29 +14,29 @@ export default async function DashboardPage({
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">{t("title")}</h1>
-        <p className="mt-2 text-gray-600">{t("welcome", { name: user?.name || "User" })}</p>
+        <h1 className="text-3xl font-bold">{t("title")}</h1>
+        <p className="mt-2 text-muted-foreground">{t("welcome", { name: user?.name || "User" })}</p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-lg border bg-white p-6 shadow-sm">
-          <h3 className="text-sm font-medium text-gray-600">{t("stats.users")}</h3>
-          <p className="mt-2 text-3xl font-bold text-gray-900">1,234</p>
+        <div className="rounded-lg border bg-card p-6 shadow-sm">
+          <h3 className="text-sm font-medium text-muted-foreground">{t("stats.users")}</h3>
+          <p className="mt-2 text-3xl font-bold">{1234}</p>
         </div>
 
-        <div className="rounded-lg border bg-white p-6 shadow-sm">
-          <h3 className="text-sm font-medium text-gray-600">{t("stats.revenue")}</h3>
-          <p className="mt-2 text-3xl font-bold text-gray-900">$45,678</p>
+        <div className="rounded-lg border bg-card p-6 shadow-sm">
+          <h3 className="text-sm font-medium text-muted-foreground">{t("stats.revenue")}</h3>
+          <p className="mt-2 text-3xl font-bold">$45,678</p>
         </div>
 
-        <div className="rounded-lg border bg-white p-6 shadow-sm">
-          <h3 className="text-sm font-medium text-gray-600">{t("stats.orders")}</h3>
-          <p className="mt-2 text-3xl font-bold text-gray-900">567</p>
+        <div className="rounded-lg border bg-card p-6 shadow-sm">
+          <h3 className="text-sm font-medium text-muted-foreground">{t("stats.orders")}</h3>
+          <p className="mt-2 text-3xl font-bold">{567}</p>
         </div>
 
-        <div className="rounded-lg border bg-white p-6 shadow-sm">
-          <h3 className="text-sm font-medium text-gray-600">{t("stats.growth")}</h3>
-          <p className="mt-2 text-3xl font-bold text-gray-900">+12%</p>
+        <div className="rounded-lg border bg-card p-6 shadow-sm">
+          <h3 className="text-sm font-medium text-muted-foreground">{t("stats.growth")}</h3>
+          <p className="mt-2 text-3xl font-bold">+12%</p>
         </div>
       </div>
     </div>

@@ -1,10 +1,11 @@
 "use server";
 
+import { randomBytes } from "node:crypto";
 import { db } from "@/lib/db";
 import { users, verificationTokens } from "@/lib/db/schema";
+import { checkRateLimit } from "@/lib/rate-limit";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
-import { randomBytes } from "node:crypto";
 
 const emailSchema = z.object({
   email: z.string().email(),
@@ -20,6 +21,16 @@ export async function requestPasswordResetAction(formData: FormData) {
   }
 
   const { email } = validatedFields.data;
+
+  // Rate limiting check
+  const rateLimitResult = await checkRateLimit(`password-reset:${email}`);
+
+  if (!rateLimitResult.success) {
+    const waitTime = Math.ceil((rateLimitResult.reset.getTime() - Date.now()) / 1000);
+    return {
+      error: `Too many password reset attempts. Please try again in ${waitTime} seconds.`,
+    };
+  }
 
   // Find user
   const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);

@@ -17,6 +17,8 @@
     "dashboard": "Dashboard",
     "profile": "Profile",
     "account": "Account",
+    "security": "Security",
+    "settings": "Settings",
     "billing": "Billing",
     "login": "Login",
     "register": "Register",
@@ -110,19 +112,35 @@
   "profile": {
     "title": "Profile Settings",
     "subtitle": "Manage your profile information",
+    "personalInfo": "Personal Information",
+    "personalInfoDescription": "Update your personal details",
     "name": "Full Name",
     "email": "Email",
+    "emailReadonly": "Email cannot be changed",
     "avatar": "Profile Picture",
-    "updateSuccess": "Profile updated successfully"
+    "bio": "Bio",
+    "bioPlaceholder": "Tell us about yourself...",
+    "bioHint": "Maximum 500 characters",
+    "updateSuccess": "Profile updated successfully",
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "manage": "Manage",
+    "preferences": "Preferences",
+    "preferencesDescription": "Language, theme, and other preferences"
   },
   "account": {
     "title": "Account Settings",
     "subtitle": "Manage your account security and preferences",
     "password": {
       "title": "Change Password",
+      "description": "Update your password to keep your account secure",
       "current": "Current Password",
       "new": "New Password",
-      "confirm": "Confirm New Password"
+      "confirm": "Confirm New Password",
+      "hint": "Password must be at least 8 characters",
+      "changePassword": "Change Password",
+      "changing": "Changing...",
+      "success": "Password changed successfully"
     },
     "twoFactor": {
       "title": "Two-Factor Authentication",
@@ -151,7 +169,17 @@
     "danger": {
       "title": "Danger Zone",
       "deleteAccount": "Delete Account",
-      "deleteWarning": "This action cannot be undone!"
+      "deleteWarning": "This action cannot be undone!",
+      "confirmTitle": "Are you absolutely sure?",
+      "confirmDescription": "This action cannot be undone. This will permanently delete your account and remove your data from our servers.",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password to confirm",
+      "confirmLabel": "Type DELETE to confirm",
+      "confirmHint": "Please type DELETE in capital letters to confirm",
+      "confirmError": "Please type DELETE to confirm deletion",
+      "cancel": "Cancel",
+      "deleting": "Deleting...",
+      "deleteSuccess": "Account deleted successfully"
     }
   },
   "admin": {

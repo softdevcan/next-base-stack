@@ -1,28 +1,29 @@
 import { auth } from "@/auth";
-import { redirect } from "next/navigation";
-import { useTranslations } from "next-intl";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
-import { Enable2FAForm } from "./enable-2fa-form";
-import { Disable2FAForm } from "./disable-2fa-form";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { redirect } from "next/navigation";
+import { Disable2FAForm } from "./2fa/disable-2fa-form";
+import { Enable2FAForm } from "./2fa/enable-2fa-form";
 
-export default async function TwoFactorAuthPage() {
+export default async function SecurityPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const session = await auth();
-  const t = useTranslations("account.twoFactor");
+  const t = await getTranslations("account.twoFactor");
 
   if (!session?.user?.id) {
     redirect("/login");
   }
 
   // Get current user's 2FA status
-  const [user] = await db
-    .select()
-    .from(users)
-    .where(eq(users.id, session.user.id))
-    .limit(1);
+  const [user] = await db.select().from(users).where(eq(users.id, session.user.id)).limit(1);
 
   const is2FAEnabled = user?.twoFactorEnabled === "totp";
 
@@ -41,8 +42,8 @@ export default async function TwoFactorAuthPage() {
         <CardContent>
           {is2FAEnabled ? (
             <div className="space-y-4">
-              <div className="rounded-lg border border-green-200 bg-green-50 p-4">
-                <p className="text-sm font-medium text-green-800">
+              <div className="rounded-lg bg-green-500/10 border border-green-500/20 p-4">
+                <p className="text-sm font-medium text-green-600 dark:text-green-400">
                   ✓ {t("enabled")}
                 </p>
               </div>

@@ -1,7 +1,7 @@
 import "server-only";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
-import { users, profiles } from "@/lib/db/schema";
+import { profiles, users } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { cache } from "react";
 

@@ -1,7 +1,7 @@
-import { getTranslations, setRequestLocale } from "next-intl/server";
-import { verifyEmailAction } from "./actions";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Link from "next/link";
+import { verifyEmailAction } from "./actions";
 
 export default async function VerifyEmailPage({
   params,
@@ -17,7 +17,7 @@ export default async function VerifyEmailPage({
 
   if (!token) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-background px-4">
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle>{t("verifyEmail.error")}</CardTitle>
@@ -36,7 +36,7 @@ export default async function VerifyEmailPage({
   const result = await verifyEmailAction(token);
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>

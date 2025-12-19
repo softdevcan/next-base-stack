@@ -1,6 +1,6 @@
-import { TOTP, Secret } from "otpauth";
 import { randomBytes } from "node:crypto";
 import bcrypt from "bcrypt";
+import { Secret, TOTP } from "otpauth";
 
 /**
  * Generate a new TOTP secret for a user
@@ -68,7 +68,7 @@ export async function generateBackupCodes(count = 10): Promise<{
  */
 export async function verifyBackupCode(
   code: string,
-  hashedCodes: string[]
+  hashedCodes: string[],
 ): Promise<{ valid: boolean; remainingCodes: string[] }> {
   for (let i = 0; i < hashedCodes.length; i++) {
     const isValid = await bcrypt.compare(code, hashedCodes[i]);

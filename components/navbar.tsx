@@ -1,35 +1,36 @@
-import Link from "next/link";
-import { getTranslations } from "next-intl/server";
 import { auth } from "@/auth";
+import { getTranslations } from "next-intl/server";
+import Link from "next/link";
 import { LanguageSwitcher } from "./language-switcher";
 import { ThemeToggle } from "./theme-toggle";
 import { Button } from "./ui/button";
+import { UserMenu } from "./user-menu";
 
 export async function Navbar({ locale }: { locale: string }) {
   const t = await getTranslations("nav");
   const session = await auth();
 
   return (
-    <nav className="border-b bg-white">
+    <nav className="border-b bg-card">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <Link href={`/${locale}`} className="text-xl font-bold">
+        <Link
+          href={`/${locale}`}
+          className="text-xl font-bold hover:text-primary transition-colors"
+        >
           {t("home")}
         </Link>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           {session?.user ? (
             <>
               <Link href={`/${locale}/dashboard`}>
-                <Button variant="ghost">{t("dashboard")}</Button>
-              </Link>
-              <Link href={`/${locale}/profile`}>
-                <Button variant="ghost">{t("profile")}</Button>
-              </Link>
-              <form action="/api/auth/signout" method="POST">
-                <Button type="submit" variant="outline">
-                  {t("logout")}
+                <Button variant="ghost" size="sm">
+                  {t("dashboard")}
                 </Button>
-              </form>
+              </Link>
+              <ThemeToggle />
+              <LanguageSwitcher />
+              <UserMenu user={session.user} />
             </>
           ) : (
             <>
@@ -39,10 +40,10 @@ export async function Navbar({ locale }: { locale: string }) {
               <Link href={`/${locale}/register`}>
                 <Button>{t("register")}</Button>
               </Link>
+              <ThemeToggle />
+              <LanguageSwitcher />
             </>
           )}
-          <ThemeToggle />
-          <LanguageSwitcher />
         </div>
       </div>
     </nav>
