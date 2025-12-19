@@ -54,6 +54,9 @@
     "resetPassword": "Reset Password",
     "resetPasswordDescription": "Enter your email to reset your password",
     "sendResetLink": "Send Reset Link",
+    "setNewPassword": "Set New Password",
+    "setNewPasswordDescription": "Please enter your new password below.",
+    "updatePassword": "Update Password",
     "backToLogin": "Back to login",
     "verifyEmail": {
       "success": "Email Verified",

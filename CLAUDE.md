@@ -312,8 +312,8 @@ Before submitting PR:
 - [ ] Email service integration
 - [ ] Stripe payment integration
 - [ ] File upload with S3
-- [ ] Admin dashboard
-- [ ] Role-based access control (RBAC)
+- [x] Admin dashboard
+- [x] Role-based access control (RBAC)
 - [ ] API rate limiting
 - [ ] Logging and monitoring
 - [ ] Testing suite

@@ -1,5 +1,5 @@
 import { requireAdmin } from "@/lib/rbac";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
@@ -9,7 +9,7 @@ export default async function AdminDashboardPage() {
   // Require admin role
   await requireAdmin();
 
-  const t = useTranslations("admin");
+  const t = await getTranslations("admin");
 
   // Get stats
   const [stats] = await db
@@ -88,13 +88,12 @@ export default async function AdminDashboardPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <span
-                    className={`rounded-full px-2 py-1 text-xs ${
-                      user.role === "admin"
+                    className={`rounded-full px-2 py-1 text-xs ${user.role === "admin"
                         ? "bg-red-100 text-red-800"
                         : user.role === "moderator"
                           ? "bg-blue-100 text-blue-800"
                           : "bg-gray-100 text-gray-800"
-                    }`}
+                      }`}
                   >
                     {user.role}
                   </span>

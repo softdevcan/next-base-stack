@@ -1,5 +1,4 @@
-import { useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Navbar } from "@/components/navbar";
 
 export default async function PrivacyPage({
@@ -9,7 +8,7 @@ export default async function PrivacyPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = useTranslations("legal.privacy");
+  const t = await getTranslations("legal.privacy");
 
   return (
     <>

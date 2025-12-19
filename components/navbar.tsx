@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { auth } from "@/auth";
 import { LanguageSwitcher } from "./language-switcher";
+import { ThemeToggle } from "./theme-toggle";
 import { Button } from "./ui/button";
 
 export async function Navbar({ locale }: { locale: string }) {
-  const t = useTranslations("nav");
+  const t = await getTranslations("nav");
   const session = await auth();
 
   return (
@@ -40,6 +41,7 @@ export async function Navbar({ locale }: { locale: string }) {
               </Link>
             </>
           )}
+          <ThemeToggle />
           <LanguageSwitcher />
         </div>
       </div>

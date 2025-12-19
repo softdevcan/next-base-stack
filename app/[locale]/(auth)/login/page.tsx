@@ -1,5 +1,4 @@
-import { useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Link from "next/link";
 import { LoginForm } from "./login-form";
 
@@ -10,7 +9,7 @@ export default async function LoginPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = useTranslations("auth.login");
+  const t = await getTranslations("auth.login");
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12">

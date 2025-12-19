@@ -1,5 +1,4 @@
-import { useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getCurrentUser, getCurrentUserProfile } from "@/lib/db/queries";
 import { ProfileForm } from "./profile-form";
 
@@ -10,7 +9,7 @@ export default async function ProfilePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = useTranslations("profile");
+  const t = await getTranslations("profile");
   const user = await getCurrentUser();
   const profile = await getCurrentUserProfile();
 

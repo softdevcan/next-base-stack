@@ -1,5 +1,5 @@
 import { requirePermission } from "@/lib/rbac";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
@@ -9,7 +9,7 @@ export default async function AdminUsersPage() {
   // Require users:write permission
   await requirePermission("users:write");
 
-  const t = useTranslations("admin.users");
+  const t = await getTranslations("admin.users");
 
   // Get all users
   const allUsers = await db

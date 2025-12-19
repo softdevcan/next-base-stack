@@ -1,15 +1,19 @@
-import { useTranslations } from "next-intl";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { verifyEmailAction } from "./actions";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 
 export default async function VerifyEmailPage({
+  params,
   searchParams,
 }: {
+  params: Promise<{ locale: string }>;
   searchParams: Promise<{ token?: string }>;
 }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const { token } = await searchParams;
-  const t = useTranslations("auth");
+  const t = await getTranslations("auth");
 
   if (!token) {
     return (

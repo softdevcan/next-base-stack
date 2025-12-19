@@ -1,5 +1,4 @@
-import { useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getCurrentUser } from "@/lib/db/queries";
 
 export default async function DashboardPage({
@@ -9,7 +8,7 @@ export default async function DashboardPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = useTranslations("dashboard");
+  const t = await getTranslations("dashboard");
   const user = await getCurrentUser();
 
   return (

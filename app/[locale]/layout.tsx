@@ -14,6 +14,10 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
+import { ThemeProvider } from "@/components/theme-provider";
+
+// ... existing code ...
+
 export default async function LocaleLayout({
   children,
   params,
@@ -34,9 +38,18 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
       <body>
-        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

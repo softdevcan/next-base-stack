@@ -65,8 +65,9 @@ export async function registerAction(formData: FormData) {
     expires,
   });
 
-  // TODO: Send verification email
-  // await sendVerificationEmail(email, verificationToken);
+  // Send verification email
+  const { sendVerificationEmail } = await import("@/lib/mail");
+  await sendVerificationEmail(email, verificationToken);
 
   redirect("/login?message=verify-email");
 }

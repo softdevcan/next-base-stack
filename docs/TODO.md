@@ -4,27 +4,27 @@ This document tracks planned features and improvements for the Next.js base stac
 
 ## 🔐 Authentication & Security
 
-- [ ] **Password Hashing**
+- [x] **Password Hashing**
   - Implement bcrypt for password hashing
   - Update `auth.config.ts` and `register/actions.ts`
   - Add password reset functionality
 
-- [ ] **OAuth Providers**
+- [x] **OAuth Providers**
   - Add Google OAuth provider
   - Add GitHub OAuth provider
   - Configure in `.env` and `auth.config.ts`
 
-- [ ] **Email Verification**
+- [x] **Email Verification**
   - Send verification emails on registration
   - Verify email before allowing login
   - Resend verification email option
 
-- [ ] **Two-Factor Authentication (2FA)**
+- [x] **Two-Factor Authentication (2FA)**
   - TOTP support (Google Authenticator, etc.)
   - SMS-based 2FA option
   - Backup codes
 
-- [ ] **Role-Based Access Control (RBAC)**
+- [x] **Role-Based Access Control (RBAC)**
   - Add `role` field to users table
   - Implement role middleware
   - Admin dashboard with user management
@@ -32,13 +32,13 @@ This document tracks planned features and improvements for the Next.js base stac
 ## 📧 Email Service
 
 - [ ] **Email Integration**
-  - Choose provider (Resend, SendGrid, or AWS SES)
-  - Setup email templates with React Email
+  - [x] Choose provider (Resend, SendGrid, or AWS SES)
+  - [x] Setup email templates with React Email
   - Transactional emails:
-    - Welcome email
-    - Email verification
-    - Password reset
-    - Notification emails
+    - [ ] Welcome email
+    - [x] Email verification
+    - [x] Password reset
+    - [ ] Notification emails
 
 ## 💳 Payment & Billing
 
@@ -129,10 +129,10 @@ This document tracks planned features and improvements for the Next.js base stac
 
 ## 🎨 UI/UX Improvements
 
-- [ ] **Dark Mode**
-  - Theme toggle in navbar
-  - Persist preference in user profile
-  - System preference detection
+- [x] **Dark Mode**
+  - [x] Theme toggle in navbar
+  - [x] Persist preference in user profile
+  - [x] System preference detection
 
 - [ ] **Accessibility**
   - ARIA labels

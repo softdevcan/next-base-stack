@@ -1,5 +1,4 @@
-import { useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Navbar } from "@/components/navbar";
 
 export default async function HomePage({
@@ -9,7 +8,7 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = useTranslations("landing");
+  const t = await getTranslations("landing");
 
   return (
     <div className="flex min-h-screen flex-col">

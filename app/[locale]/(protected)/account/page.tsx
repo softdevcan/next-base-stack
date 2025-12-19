@@ -1,5 +1,4 @@
-import { useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Button } from "@/components/ui/button";
 
 export default async function AccountPage({
@@ -9,7 +8,7 @@ export default async function AccountPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = useTranslations("account");
+  const t = await getTranslations("account");
 
   return (
     <div className="container mx-auto max-w-2xl px-4 py-8">

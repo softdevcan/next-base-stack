@@ -41,8 +41,9 @@ export async function requestPasswordResetAction(formData: FormData) {
     expires,
   });
 
-  // TODO: Send email with reset link
-  // await sendPasswordResetEmail(email, resetToken);
+  // Send email with reset link
+  const { sendPasswordResetEmail } = await import("@/lib/mail");
+  await sendPasswordResetEmail(email, resetToken);
 
   return { success: true, message: "If an account exists, a reset link has been sent." };
 }
