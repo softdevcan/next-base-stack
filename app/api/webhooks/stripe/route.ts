@@ -23,6 +23,10 @@ import { getPlanFromPriceId } from "@/lib/stripe";
  * - payment_method.detached
  */
 export async function POST(req: Request) {
+  if (!stripe || !env.STRIPE_WEBHOOK_SECRET) {
+    return NextResponse.json({ error: "Stripe is not configured" }, { status: 503 });
+  }
+
   const body = await req.text();
   const signature = (await headers()).get("stripe-signature");
 
@@ -133,15 +137,22 @@ async function handleSubscriptionChange(subscription: Stripe.Subscription) {
   }
 
   // Update subscription in database
+  const subData = subscription as unknown as {
+    id: string;
+    status: string;
+    current_period_end: number;
+    cancel_at_period_end: boolean;
+  };
+
   await upsertSubscription({
     userId: user.id,
     stripeCustomerId: customerId,
-    stripeSubscriptionId: subscription.id,
+    stripeSubscriptionId: subData.id,
     stripePriceId: priceId,
-    stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
+    stripeCurrentPeriodEnd: new Date(subData.current_period_end * 1000),
     plan: planInfo.plan,
-    status: subscription.status,
-    cancelAtPeriodEnd: subscription.cancel_at_period_end,
+    status: subData.status,
+    cancelAtPeriodEnd: subData.cancel_at_period_end,
   });
 
   console.log(`Subscription updated for user ${user.id}: ${planInfo.plan}`);
@@ -176,9 +187,9 @@ async function handleSubscriptionCancellation(subscription: Stripe.Subscription)
   await upsertSubscription({
     userId: user.id,
     stripeCustomerId: customerId,
-    stripeSubscriptionId: null,
-    stripePriceId: null,
-    stripeCurrentPeriodEnd: null,
+    stripeSubscriptionId: undefined,
+    stripePriceId: undefined,
+    stripeCurrentPeriodEnd: undefined,
     plan: "free",
     status: "canceled",
     cancelAtPeriodEnd: false,

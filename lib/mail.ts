@@ -27,8 +27,9 @@ import { Resend } from "resend";
 
 /**
  * Resend client instance
+ * Only initialized if RESEND_API_KEY is provided
  */
-const resend = new Resend(env.RESEND_API_KEY);
+const resend = env.RESEND_API_KEY ? new Resend(env.RESEND_API_KEY) : null;
 
 /**
  * Sender email address
@@ -84,6 +85,11 @@ function getLocalizedDate(locale: string): string {
  * Send a verification email to the user
  */
 export async function sendVerificationEmail(email: string, token: string) {
+  if (!resend) {
+    console.warn("Email service not configured - skipping verification email");
+    return { success: false, error: "Email service not configured" };
+  }
+
   const confirmLink = `${env.NEXT_PUBLIC_APP_URL}/verify-email?token=${token}`;
 
   try {
@@ -110,6 +116,11 @@ export async function sendVerificationEmail(email: string, token: string) {
  * Send a password reset email to the user
  */
 export async function sendPasswordResetEmail(email: string, token: string) {
+  if (!resend) {
+    console.warn("Email service not configured - skipping password reset email");
+    return { success: false, error: "Email service not configured" };
+  }
+
   const resetLink = `${env.NEXT_PUBLIC_APP_URL}/reset-password?token=${token}`;
 
   try {
@@ -136,6 +147,11 @@ export async function sendPasswordResetEmail(email: string, token: string) {
  * Send a welcome email to the user
  */
 export async function sendWelcomeEmail(email: string, name?: string) {
+  if (!resend) {
+    console.warn("Email service not configured - skipping welcome email");
+    return { success: false, error: "Email service not configured" };
+  }
+
   const dashboardLink = `${env.NEXT_PUBLIC_APP_URL}/dashboard`;
 
   try {
@@ -162,6 +178,11 @@ export async function sendWelcomeEmail(email: string, name?: string) {
  * Send a password changed notification email
  */
 export async function sendPasswordChangedEmail(email: string, name?: string, ipAddress?: string) {
+  if (!resend) {
+    console.warn("Email service not configured - skipping password changed email");
+    return { success: false, error: "Email service not configured" };
+  }
+
   // Check user preferences and get locale
   const preferences = await getUserEmailPreferences(email);
   if (!preferences?.passwordChanged) {
@@ -209,6 +230,11 @@ export async function sendTwoFactorEnabledEmail(
   name?: string,
   ipAddress?: string,
 ) {
+  if (!resend) {
+    console.warn("Email service not configured - skipping 2FA enabled email");
+    return { success: false, error: "Email service not configured" };
+  }
+
   // Check user preferences and get locale
   const preferences = await getUserEmailPreferences(email);
   if (!preferences?.twoFactorEnabled) {
@@ -250,6 +276,11 @@ export async function sendTwoFactorEnabledEmail(
  * Send a 2FA disabled notification email
  */
 export async function sendTwoFactorDisabledEmail(email: string, name?: string, ipAddress?: string) {
+  if (!resend) {
+    console.warn("Email service not configured - skipping 2FA disabled email");
+    return { success: false, error: "Email service not configured" };
+  }
+
   // Check user preferences and get locale
   const preferences = await getUserEmailPreferences(email);
   if (!preferences?.twoFactorDisabled) {
@@ -299,6 +330,11 @@ export async function sendNewDeviceLoginEmail(
   device?: string,
   browser?: string,
 ) {
+  if (!resend) {
+    console.warn("Email service not configured - skipping new device login email");
+    return { success: false, error: "Email service not configured" };
+  }
+
   // Check user preferences and get locale
   const preferences = await getUserEmailPreferences(email);
   if (!preferences?.newDeviceLogin) {
@@ -350,6 +386,11 @@ export async function sendProfileUpdatedEmail(
   updatedFields: string[],
   name?: string,
 ) {
+  if (!resend) {
+    console.warn("Email service not configured - skipping profile updated email");
+    return { success: false, error: "Email service not configured" };
+  }
+
   // Check user preferences and get locale
   const preferences = await getUserEmailPreferences(email);
   if (!preferences?.profileUpdated) {
@@ -407,6 +448,11 @@ export async function sendAccountDeletionScheduledEmail(
   scheduledDate: string,
   name?: string,
 ) {
+  if (!resend) {
+    console.warn("Email service not configured - skipping account deletion scheduled email");
+    return { success: false, error: "Email service not configured" };
+  }
+
   // Check user preferences and get locale
   const preferences = await getUserEmailPreferences(email);
   if (!preferences?.accountDeletion) {

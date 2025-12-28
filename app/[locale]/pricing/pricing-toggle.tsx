@@ -9,7 +9,20 @@ import { SUBSCRIPTION_PLANS, formatCurrency } from "@/lib/stripe";
 import type { Subscription } from "@/lib/db/schema";
 import { SubscribeButton } from "./subscribe-button";
 
-export function PricingToggle({ subscription }: { subscription: Subscription | null | undefined }) {
+interface PriceIds {
+  proMonthly: string;
+  proYearly: string;
+  enterpriseMonthly: string;
+  enterpriseYearly: string;
+}
+
+export function PricingToggle({
+  subscription,
+  priceIds
+}: {
+  subscription: Subscription | null | undefined;
+  priceIds: PriceIds;
+}) {
   const t = useTranslations("pricing");
   const [interval, setInterval] = useState<"monthly" | "yearly">("yearly");
 
@@ -57,8 +70,8 @@ export function PricingToggle({ subscription }: { subscription: Subscription | n
           </CardHeader>
           <CardContent>
             <ul className="space-y-3">
-              {SUBSCRIPTION_PLANS.free.features.map((feature, index) => (
-                <li key={index} className="flex items-start gap-2">
+              {SUBSCRIPTION_PLANS.free.features.map((feature) => (
+                <li key={feature} className="flex items-start gap-2">
                   <Check className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                   <span className="text-sm">{feature}</span>
                 </li>
@@ -104,8 +117,8 @@ export function PricingToggle({ subscription }: { subscription: Subscription | n
           </CardHeader>
           <CardContent>
             <ul className="space-y-3">
-              {SUBSCRIPTION_PLANS.pro.features.map((feature, index) => (
-                <li key={index} className="flex items-start gap-2">
+              {SUBSCRIPTION_PLANS.pro.features.map((feature) => (
+                <li key={feature} className="flex items-start gap-2">
                   <Check className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                   <span className="text-sm">{feature}</span>
                 </li>
@@ -117,11 +130,7 @@ export function PricingToggle({ subscription }: { subscription: Subscription | n
               plan="pro"
               interval={interval}
               currentPlan={subscription?.plan}
-              priceId={
-                interval === "monthly"
-                  ? SUBSCRIPTION_PLANS.pro.monthly.stripePriceId
-                  : SUBSCRIPTION_PLANS.pro.yearly.stripePriceId
-              }
+              priceId={interval === "monthly" ? priceIds.proMonthly : priceIds.proYearly}
             />
           </CardFooter>
         </Card>
@@ -147,8 +156,8 @@ export function PricingToggle({ subscription }: { subscription: Subscription | n
           </CardHeader>
           <CardContent>
             <ul className="space-y-3">
-              {SUBSCRIPTION_PLANS.enterprise.features.map((feature, index) => (
-                <li key={index} className="flex items-start gap-2">
+              {SUBSCRIPTION_PLANS.enterprise.features.map((feature) => (
+                <li key={feature} className="flex items-start gap-2">
                   <Check className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                   <span className="text-sm">{feature}</span>
                 </li>
@@ -160,11 +169,7 @@ export function PricingToggle({ subscription }: { subscription: Subscription | n
               plan="enterprise"
               interval={interval}
               currentPlan={subscription?.plan}
-              priceId={
-                interval === "monthly"
-                  ? SUBSCRIPTION_PLANS.enterprise.monthly.stripePriceId
-                  : SUBSCRIPTION_PLANS.enterprise.yearly.stripePriceId
-              }
+              priceId={interval === "monthly" ? priceIds.enterpriseMonthly : priceIds.enterpriseYearly}
             />
           </CardFooter>
         </Card>

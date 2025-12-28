@@ -4,15 +4,19 @@ import { env } from "@/lib/env";
 /**
  * Stripe Client
  * Official Stripe SDK client for server-side operations
+ * Only initialized if STRIPE_SECRET_KEY is provided
  */
-export const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
-  apiVersion: "2024-12-18.acacia",
-  typescript: true,
-});
+export const stripe = env.STRIPE_SECRET_KEY
+  ? new Stripe(env.STRIPE_SECRET_KEY, {
+      apiVersion: "2025-12-15.clover",
+      typescript: true,
+    })
+  : null;
 
 /**
- * Subscription Plan Configuration
+ * Subscription Plan Configuration (Client-Safe)
  * Defines available subscription tiers and their features
+ * Note: stripePriceId values are retrieved server-side for security
  */
 export const SUBSCRIPTION_PLANS = {
   free: {
@@ -34,12 +38,10 @@ export const SUBSCRIPTION_PLANS = {
     monthly: {
       price: 29,
       currency: "usd",
-      stripePriceId: env.STRIPE_PRO_MONTHLY_PRICE_ID,
     },
     yearly: {
       price: 279, // ~$23.25/month (20% discount)
       currency: "usd",
-      stripePriceId: env.STRIPE_PRO_YEARLY_PRICE_ID,
     },
     features: [
       "All Free features",
@@ -56,12 +58,10 @@ export const SUBSCRIPTION_PLANS = {
     monthly: {
       price: 99,
       currency: "usd",
-      stripePriceId: env.STRIPE_ENTERPRISE_MONTHLY_PRICE_ID,
     },
     yearly: {
       price: 949, // ~$79.08/month (20% discount)
       currency: "usd",
-      stripePriceId: env.STRIPE_ENTERPRISE_YEARLY_PRICE_ID,
     },
     features: [
       "All Pro features",
@@ -75,12 +75,27 @@ export const SUBSCRIPTION_PLANS = {
   },
 } as const;
 
+/**
+ * Get Stripe Price ID for a plan (Server-Side Only)
+ * This function should only be called from server components or server actions
+ */
+export function getStripePriceId(plan: "pro" | "enterprise", interval: "monthly" | "yearly"): string {
+  if (plan === "pro") {
+    return interval === "monthly"
+      ? env.STRIPE_PRO_MONTHLY_PRICE_ID || ""
+      : env.STRIPE_PRO_YEARLY_PRICE_ID || "";
+  }
+  return interval === "monthly"
+    ? env.STRIPE_ENTERPRISE_MONTHLY_PRICE_ID || ""
+    : env.STRIPE_ENTERPRISE_YEARLY_PRICE_ID || "";
+}
+
 export type SubscriptionPlan = keyof typeof SUBSCRIPTION_PLANS;
 
 /**
  * Helper function to format currency
  */
-export function formatCurrency(amount: number, currency: string = "usd"): string {
+export function formatCurrency(amount: number, currency = "usd"): string {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: currency.toUpperCase(),

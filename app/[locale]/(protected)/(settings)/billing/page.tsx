@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { auth } from "@/lib/auth";
+import { auth } from "@/auth";
 import { getUserSubscription, getUserInvoices } from "@/lib/db/queries";
 import { SUBSCRIPTION_PLANS, formatCurrency, isSubscriptionActive } from "@/lib/stripe";
 import { CurrentPlanCard } from "./current-plan-card";
@@ -13,8 +13,9 @@ import { ResumeSubscriptionButton } from "./resume-subscription-button";
 import { InvoicesTable } from "./invoices-table";
 import { format } from "date-fns";
 
-export async function generateMetadata({ params }: { params: { locale: string } }) {
-  const t = await getTranslations({ locale: params.locale, namespace: "billing" });
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "billing" });
 
   return {
     title: t("title"),

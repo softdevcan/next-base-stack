@@ -61,8 +61,8 @@ export function CurrentPlanCard({ subscription }: { subscription: Subscription |
           <div>
             <p className="font-medium mb-2">{tPricing("features")}:</p>
             <ul className="space-y-1 text-sm text-muted-foreground">
-              {planConfig.features.slice(0, 3).map((feature, index) => (
-                <li key={index}>• {feature}</li>
+              {planConfig.features.slice(0, 3).map((feature) => (
+                <li key={feature}>• {feature}</li>
               ))}
             </ul>
           </div>

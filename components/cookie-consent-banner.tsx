@@ -84,7 +84,7 @@ export function CookieConsentBanner({ locale, translations }: CookieConsentBanne
 
   const savePreferences = async (prefs: typeof preferences) => {
     try {
-      const response = await fetch(`/${locale}/api/cookie-consent`, {
+      const response = await fetch("/api/cookie-consent", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -109,6 +109,7 @@ export function CookieConsentBanner({ locale, translations }: CookieConsentBanne
       <Card className="w-full max-w-2xl shadow-2xl">
         <CardHeader className="relative">
           <button
+            type="button"
             onClick={() => setIsVisible(false)}
             className="absolute right-4 top-4 rounded-full p-2 hover:bg-gray-100 dark:hover:bg-gray-800"
             aria-label={translations.close}

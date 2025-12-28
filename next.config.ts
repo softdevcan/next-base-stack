@@ -4,10 +4,8 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin("./lib/i18n/request.ts");
 
 const nextConfig: NextConfig = {
-  experimental: {
-    turbo: {
-      resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".mjs", ".json"],
-    },
+  turbopack: {
+    resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".mjs", ".json"],
   },
   async headers() {
     return [
@@ -61,7 +59,6 @@ const nextConfig: NextConfig = {
               "camera=()",
               "microphone=()",
               "geolocation=()",
-              "interest-cohort=()", // Disable FLoC
             ].join(", "),
           },
         ],

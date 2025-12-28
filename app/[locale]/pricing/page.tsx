@@ -1,16 +1,13 @@
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import { Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { SUBSCRIPTION_PLANS, formatCurrency } from "@/lib/stripe";
-import { auth } from "@/lib/auth";
+import { getStripePriceId } from "@/lib/stripe";
+import { auth } from "@/auth";
 import { getUserSubscription } from "@/lib/db/queries";
 import { PricingToggle } from "./pricing-toggle";
-import { SubscribeButton } from "./subscribe-button";
 
-export async function generateMetadata({ params }: { params: { locale: string } }) {
-  const t = await getTranslations({ locale: params.locale, namespace: "pricing" });
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "pricing" });
 
   return {
     title: t("title"),
@@ -22,10 +19,18 @@ export default async function PricingPage() {
   const session = await auth();
   const subscription = session?.user?.id ? await getUserSubscription() : null;
 
+  // Get Stripe price IDs server-side
+  const priceIds = {
+    proMonthly: getStripePriceId("pro", "monthly"),
+    proYearly: getStripePriceId("pro", "yearly"),
+    enterpriseMonthly: getStripePriceId("enterprise", "monthly"),
+    enterpriseYearly: getStripePriceId("enterprise", "yearly"),
+  };
+
   return (
     <div className="container mx-auto px-4 py-16">
       <PricingHeader />
-      <PricingToggle subscription={subscription} />
+      <PricingToggle subscription={subscription} priceIds={priceIds} />
     </div>
   );
 }

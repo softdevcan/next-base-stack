@@ -23,13 +23,13 @@ export const env = createEnv({
     // Email Service (Resend)
     RESEND_API_KEY: z.string().optional(),
 
-    // Stripe (Payment & Subscriptions)
-    STRIPE_SECRET_KEY: z.string().min(1),
-    STRIPE_WEBHOOK_SECRET: z.string().min(1),
-    STRIPE_PRO_MONTHLY_PRICE_ID: z.string().min(1),
-    STRIPE_PRO_YEARLY_PRICE_ID: z.string().min(1),
-    STRIPE_ENTERPRISE_MONTHLY_PRICE_ID: z.string().min(1),
-    STRIPE_ENTERPRISE_YEARLY_PRICE_ID: z.string().min(1),
+    // Stripe (Payment & Subscriptions) - Optional
+    STRIPE_SECRET_KEY: z.string().optional(),
+    STRIPE_WEBHOOK_SECRET: z.string().optional(),
+    STRIPE_PRO_MONTHLY_PRICE_ID: z.string().optional(),
+    STRIPE_PRO_YEARLY_PRICE_ID: z.string().optional(),
+    STRIPE_ENTERPRISE_MONTHLY_PRICE_ID: z.string().optional(),
+    STRIPE_ENTERPRISE_YEARLY_PRICE_ID: z.string().optional(),
   },
   client: {
     // Supabase (Public - Client-side)
@@ -39,8 +39,8 @@ export const env = createEnv({
     // Application
     NEXT_PUBLIC_APP_URL: z.string().url(),
 
-    // Stripe (Public - Client-side)
-    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1),
+    // Stripe (Public - Client-side) - Optional
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().optional(),
   },
   runtimeEnv: {
     // Supabase

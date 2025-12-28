@@ -4,14 +4,14 @@
  */
 
 import { CookieConsentBanner } from "@/components/cookie-consent-banner";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 interface CookieConsentProviderProps {
   locale: string;
 }
 
-export function CookieConsentProvider({ locale }: CookieConsentProviderProps) {
-  const t = useTranslations("cookies.banner");
+export async function CookieConsentProvider({ locale }: CookieConsentProviderProps) {
+  const t = await getTranslations({ locale, namespace: "cookies.banner" });
 
   const translations = {
     title: t("title"),

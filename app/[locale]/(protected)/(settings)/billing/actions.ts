@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { auth } from "@/lib/auth";
+import { auth } from "@/auth";
 import { stripe, SUBSCRIPTION_PLANS } from "@/lib/stripe";
 import { env } from "@/lib/env";
 import { getUserSubscription, upsertSubscription } from "@/lib/db/queries";
@@ -20,6 +20,10 @@ const checkoutSchema = z.object({
 });
 
 export async function createCheckoutSession(data: z.infer<typeof checkoutSchema>) {
+  if (!stripe) {
+    return { error: "Stripe is not configured" };
+  }
+
   const session = await auth();
   if (!session?.user?.id || !session.user.email) {
     return { error: "Unauthorized" };
@@ -90,6 +94,10 @@ const portalSchema = z.object({
 });
 
 export async function createPortalSession(data: z.infer<typeof portalSchema>) {
+  if (!stripe) {
+    return { error: "Stripe is not configured" };
+  }
+
   const session = await auth();
   if (!session?.user?.id) {
     return { error: "Unauthorized" };
@@ -123,6 +131,10 @@ export async function createPortalSession(data: z.infer<typeof portalSchema>) {
  * Cancel subscription at period end
  */
 export async function cancelSubscription() {
+  if (!stripe) {
+    return { error: "Stripe is not configured" };
+  }
+
   const session = await auth();
   if (!session?.user?.id) {
     return { error: "Unauthorized" };
@@ -159,6 +171,10 @@ export async function cancelSubscription() {
  * Resume canceled subscription
  */
 export async function resumeSubscription() {
+  if (!stripe) {
+    return { error: "Stripe is not configured" };
+  }
+
   const session = await auth();
   if (!session?.user?.id) {
     return { error: "Unauthorized" };
