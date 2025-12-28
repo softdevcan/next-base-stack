@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import { getStripePriceId } from "@/lib/stripe";
+import { getStripePriceId, isStripeConfigured } from "@/lib/stripe";
+import { isIyzicoConfigured } from "@/lib/iyzico-client";
 import { auth } from "@/auth";
 import { getUserSubscription } from "@/lib/db/queries";
 import { PricingToggle } from "./pricing-toggle";
@@ -19,18 +20,34 @@ export default async function PricingPage() {
   const session = await auth();
   const subscription = session?.user?.id ? await getUserSubscription() : null;
 
-  // Get Stripe price IDs server-side
-  const priceIds = {
-    proMonthly: getStripePriceId("pro", "monthly"),
-    proYearly: getStripePriceId("pro", "yearly"),
-    enterpriseMonthly: getStripePriceId("enterprise", "monthly"),
-    enterpriseYearly: getStripePriceId("enterprise", "yearly"),
-  };
+  // Check which payment providers are configured
+  const hasStripe = isStripeConfigured();
+  const hasIyzico = isIyzicoConfigured();
+
+  // Get Stripe price IDs server-side (if Stripe is configured)
+  const priceIds = hasStripe
+    ? {
+        proMonthly: getStripePriceId("pro", "monthly"),
+        proYearly: getStripePriceId("pro", "yearly"),
+        enterpriseMonthly: getStripePriceId("enterprise", "monthly"),
+        enterpriseYearly: getStripePriceId("enterprise", "yearly"),
+      }
+    : {
+        proMonthly: "",
+        proYearly: "",
+        enterpriseMonthly: "",
+        enterpriseYearly: "",
+      };
 
   return (
     <div className="container mx-auto px-4 py-16">
       <PricingHeader />
-      <PricingToggle subscription={subscription} priceIds={priceIds} />
+      <PricingToggle
+        subscription={subscription}
+        priceIds={priceIds}
+        hasStripe={hasStripe}
+        hasIyzico={hasIyzico}
+      />
     </div>
   );
 }

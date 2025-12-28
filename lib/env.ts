@@ -30,6 +30,16 @@ export const env = createEnv({
     STRIPE_PRO_YEARLY_PRICE_ID: z.string().optional(),
     STRIPE_ENTERPRISE_MONTHLY_PRICE_ID: z.string().optional(),
     STRIPE_ENTERPRISE_YEARLY_PRICE_ID: z.string().optional(),
+
+    // iyzico (Payment & Subscriptions for Turkey) - Optional
+    IYZICO_API_KEY: z.string().optional(),
+    IYZICO_SECRET_KEY: z.string().optional(),
+    IYZICO_BASE_URL: z.string().url().optional(),
+    IYZICO_PRO_MONTHLY_PLAN_CODE: z.string().optional(),
+    IYZICO_PRO_YEARLY_PLAN_CODE: z.string().optional(),
+    IYZICO_ENTERPRISE_MONTHLY_PLAN_CODE: z.string().optional(),
+    IYZICO_ENTERPRISE_YEARLY_PLAN_CODE: z.string().optional(),
+    IYZICO_WEBHOOK_SECRET: z.string().optional(),
   },
   client: {
     // Supabase (Public - Client-side)
@@ -73,6 +83,16 @@ export const env = createEnv({
     STRIPE_ENTERPRISE_MONTHLY_PRICE_ID: process.env.STRIPE_ENTERPRISE_MONTHLY_PRICE_ID,
     STRIPE_ENTERPRISE_YEARLY_PRICE_ID: process.env.STRIPE_ENTERPRISE_YEARLY_PRICE_ID,
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+
+    // iyzico
+    IYZICO_API_KEY: process.env.IYZICO_API_KEY,
+    IYZICO_SECRET_KEY: process.env.IYZICO_SECRET_KEY,
+    IYZICO_BASE_URL: process.env.IYZICO_BASE_URL,
+    IYZICO_PRO_MONTHLY_PLAN_CODE: process.env.IYZICO_PRO_MONTHLY_PLAN_CODE,
+    IYZICO_PRO_YEARLY_PLAN_CODE: process.env.IYZICO_PRO_YEARLY_PLAN_CODE,
+    IYZICO_ENTERPRISE_MONTHLY_PLAN_CODE: process.env.IYZICO_ENTERPRISE_MONTHLY_PLAN_CODE,
+    IYZICO_ENTERPRISE_YEARLY_PLAN_CODE: process.env.IYZICO_ENTERPRISE_YEARLY_PLAN_CODE,
+    IYZICO_WEBHOOK_SECRET: process.env.IYZICO_WEBHOOK_SECRET,
 
     // Application
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,

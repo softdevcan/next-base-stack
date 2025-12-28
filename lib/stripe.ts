@@ -36,11 +36,11 @@ export const SUBSCRIPTION_PLANS = {
     name: "Pro",
     description: "Perfect for professionals and small teams",
     monthly: {
-      price: 29,
+      price: 9.99,
       currency: "usd",
     },
     yearly: {
-      price: 279, // ~$23.25/month (20% discount)
+      price: 99.99, // ~$8.33/month (17% savings)
       currency: "usd",
     },
     features: [
@@ -56,11 +56,11 @@ export const SUBSCRIPTION_PLANS = {
     name: "Enterprise",
     description: "For large teams and organizations",
     monthly: {
-      price: 99,
+      price: 29.99,
       currency: "usd",
     },
     yearly: {
-      price: 949, // ~$79.08/month (20% discount)
+      price: 299.99, // ~$25/month (17% savings)
       currency: "usd",
     },
     features: [
@@ -130,4 +130,11 @@ export function getPlanFromPriceId(priceId: string): {
  */
 export function isSubscriptionActive(status: string): boolean {
   return ["active", "trialing"].includes(status);
+}
+
+/**
+ * Helper to check if Stripe is configured
+ */
+export function isStripeConfigured(): boolean {
+  return !!env.STRIPE_SECRET_KEY;
 }

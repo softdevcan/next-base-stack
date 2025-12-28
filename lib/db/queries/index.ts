@@ -22,3 +22,14 @@ export {
   upsertPaymentMethod,
   createInvoice,
 } from "./subscriptions";
+
+export {
+  getAllUsers,
+  getTotalUserCount,
+  getSubscriptionStats,
+  getRevenueStats,
+  getRecentSubscriptions,
+  getUserById as getAdminUserById,
+  updateUserRole,
+  deleteUserAsAdmin,
+} from "./admin";

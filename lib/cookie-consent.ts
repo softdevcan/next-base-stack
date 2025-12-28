@@ -44,7 +44,7 @@ export async function setCookiePreferences(preferences: CookiePreferences): Prom
   const cookieStore = await cookies();
 
   cookieStore.set(COOKIE_CONSENT_NAME, JSON.stringify(preferences), {
-    httpOnly: true,
+    httpOnly: false, // Must be false so client-side JavaScript can read it
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     maxAge: 60 * 60 * 24 * COOKIE_CONSENT_EXPIRY, // 365 days

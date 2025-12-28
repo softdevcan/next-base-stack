@@ -182,20 +182,83 @@
   },
   "admin": {
     "title": "Yönetici Paneli",
-    "subtitle": "Sistemi yönetin ve kullanıcıları kontrol edin",
-    "stats": {
-      "totalUsers": "Toplam Kullanıcılar",
-      "verifiedUsers": "Doğrulanmış Kullanıcılar",
-      "admins": "Yöneticiler"
+    "subtitle": "Kullanıcıları, abonelikleri ve platform istatistiklerini yönetin",
+    "nav": {
+      "dashboard": "Kontrol Paneli",
+      "users": "Kullanıcılar",
+      "subscriptions": "Abonelikler",
+      "revenue": "Gelir"
     },
-    "recentUsers": {
-      "title": "Son Kullanıcılar",
-      "description": "En son kaydolan 10 kullanıcı"
+    "dashboard": {
+      "title": "Genel Bakış",
+      "stats": {
+        "totalUsers": "Toplam Kullanıcılar",
+        "verifiedUsers": "Doğrulanmış Kullanıcılar",
+        "admins": "Yöneticiler",
+        "activeSubscriptions": "Aktif Abonelikler",
+        "totalRevenue": "Toplam Gelir",
+        "mrr": "Aylık Yinelenen Gelir (MRR)"
+      },
+      "recentUsers": {
+        "title": "Son Kullanıcılar",
+        "description": "En son kaydolan 10 kullanıcı"
+      },
+      "recentSubscriptions": "Son Abonelikler",
+      "noSubscriptions": "Henüz abonelik yok"
     },
     "users": {
       "title": "Kullanıcı Yönetimi",
       "subtitle": "Kullanıcı rollerini yönetin",
-      "allUsers": "Tüm Kullanıcılar"
+      "allUsers": "Tüm Kullanıcılar",
+      "search": "Kullanıcı ara...",
+      "table": {
+        "name": "Ad",
+        "email": "E-posta",
+        "role": "Rol",
+        "plan": "Plan",
+        "status": "Durum",
+        "created": "Oluşturulma",
+        "actions": "İşlemler"
+      },
+      "roles": {
+        "user": "Kullanıcı",
+        "admin": "Yönetici",
+        "moderator": "Moderatör"
+      },
+      "actions": {
+        "view": "Detayları Gör",
+        "changeRole": "Rolü Değiştir",
+        "delete": "Kullanıcıyı Sil"
+      },
+      "delete": {
+        "title": "Kullanıcıyı Sil",
+        "description": "Bu kullanıcıyı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
+        "confirm": "Evet, Kullanıcıyı Sil",
+        "success": "Kullanıcı başarıyla silindi",
+        "error": "Kullanıcı silinemedi"
+      },
+      "changeRole": {
+        "title": "Kullanıcı Rolünü Değiştir",
+        "description": "{name} için yeni bir rol seçin",
+        "success": "Rol başarıyla güncellendi",
+        "error": "Rol güncellenemedi"
+      }
+    },
+    "subscriptions": {
+      "title": "Abonelik Genel Bakışı",
+      "byPlan": "Plana Göre Abonelikler",
+      "byStatus": "Duruma Göre Abonelikler",
+      "plans": {
+        "free": "Ücretsiz",
+        "pro": "Pro",
+        "enterprise": "Kurumsal"
+      },
+      "statuses": {
+        "active": "Aktif",
+        "canceled": "İptal Edildi",
+        "past_due": "Gecikmiş",
+        "incomplete": "Tamamlanmamış"
+      }
     }
   },
   "billing": {
@@ -251,7 +314,7 @@
     "subtitle": "İhtiyaçlarınıza uygun planı seçin",
     "monthly": "Aylık",
     "yearly": "Yıllık",
-    "yearlyDiscount": "Yıllık faturalama ile %20 tasarruf edin",
+    "yearlyDiscount": "Yıllık faturalama ile %17 tasarruf edin",
     "perMonth": "/ay",
     "perYear": "/yıl",
     "billedMonthly": "Aylık fatura",
@@ -477,6 +540,43 @@
     }
   },
   "cookies": {
+    "title": "Çerez Politikası",
+    "description": "Bu web sitesinde kullanılan çerezler hakkında bilgi edinin",
+    "whatAreCookies": {
+      "title": "Çerezler Nedir?",
+      "description": "Çerezler, web sitelerini ziyaret ettiğinizde cihazınıza yerleştirilen küçük metin dosyalarıdır. Web sitelerinin düzgün çalışması, daha verimli olması ve tercihlerinizi hatırlaması için yaygın olarak kullanılırlar."
+    },
+    "howWeUseCookies": {
+      "title": "Çerezleri Nasıl Kullanıyoruz?",
+      "description": "Web sitemizde çeşitli amaçlarla çerezler kullanıyoruz: oturum yönetimi, kullanıcı tercihlerini hatırlama, sitemizin kullanımını analiz etme ve hizmetlerimizi geliştirme."
+    },
+    "cookieTypes": {
+      "title": "Çerez Türleri",
+      "necessary": {
+        "title": "Gerekli Çerezler",
+        "description": "Bu çerezler web sitesinin düzgün çalışması için zorunludur. Oturum yönetimi, kimlik doğrulama ve güvenlik işlevlerini içerir. Bu çerezler olmadan site düzgün çalışamaz."
+      },
+      "functional": {
+        "title": "İşlevsel Çerezler",
+        "description": "Bu çerezler web sitesinin gelişmiş işlevsellik ve kişiselleştirme sağlamasını mümkün kılar. Dil tercihiniz, tema ayarlarınız ve diğer kişiselleştirme seçeneklerini hatırlamamıza yardımcı olur."
+      },
+      "analytics": {
+        "title": "Analitik Çerezler",
+        "description": "Bu çerezler ziyaretçilerin web sitemizle nasıl etkileşime girdiğini anlamamıza yardımcı olur. Sayfa ziyaretleri, trafik kaynakları ve ziyaretçilerin sitede nasıl hareket ettiği hakkında anonim bilgiler toplarız."
+      },
+      "marketing": {
+        "title": "Pazarlama Çerezleri",
+        "description": "Bu çerezler size ilgili reklamları göstermek için kullanılır. Ziyaretçileri web siteleri arasında takip eder ve ilgi alanlarınıza göre reklamlar göstermek için profil oluştururlar."
+      }
+    },
+    "manageCookies": {
+      "title": "Çerez Yönetimi",
+      "description": "Çerez tercihlerinizi profil ayarlarınızdan yönetebilir veya tarayıcı ayarlarınızı kullanarak çerezleri kontrol edebilirsiniz. Bazı çerezleri devre dışı bırakmanın web sitesinin işlevselliğini etkileyebileceğini unutmayın."
+    },
+    "contact": {
+      "title": "İletişim",
+      "description": "Çerez politikamız hakkında sorularınız varsa, lütfen bizimle iletişime geçin."
+    },
     "banner": {
       "title": "Çerez Tercihleri",
       "description": "Tarayıcı deneyiminizi geliştirmek ve trafiğimizi analiz etmek için çerezler kullanıyoruz. Lütfen hangi çerezlere izin verdiğinizi seçin.",
@@ -494,6 +594,15 @@
       "customize": "Özelleştir",
       "privacyPolicy": "Gizlilik Politikamızı Görüntüle",
       "close": "Kapat"
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "En son haberler, güncellemeler ve içgörüler",
+    "comingSoon": {
+      "title": "Yakında Geliyor",
+      "description": "Blog bölümümüz üzerinde çalışıyoruz",
+      "message": "Yakında burada harika içerikler paylaşacağız. Güncellemelerden haberdar olmak için bizi takip edin!"
     }
   }
 }

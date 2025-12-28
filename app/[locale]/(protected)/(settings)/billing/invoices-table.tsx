@@ -12,10 +12,11 @@ import {
 } from "@/components/ui/table";
 import type { Invoice } from "@/lib/db/schema";
 import { formatCurrency } from "@/lib/stripe";
+import { formatTRY } from "@/lib/iyzico-client";
 import { format } from "date-fns";
 import { ExternalLink } from "lucide-react";
 
-export function InvoicesTable({ invoices }: { invoices: Invoice[] }) {
+export function InvoicesTable({ invoices, provider }: { invoices: Invoice[]; provider?: string }) {
   const t = useTranslations("billing.invoices");
 
   return (
@@ -38,41 +39,48 @@ export function InvoicesTable({ invoices }: { invoices: Invoice[] }) {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {invoices.map((invoice) => (
-                <TableRow key={invoice.id}>
-                  <TableCell>{format(invoice.createdAt, "PPP")}</TableCell>
-                  <TableCell>
-                    {formatCurrency(invoice.amount / 100, invoice.currency)}
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      variant={
-                        invoice.status === "paid"
-                          ? "default"
-                          : invoice.status === "open"
-                            ? "secondary"
-                            : "destructive"
-                      }
-                    >
-                      {invoice.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    {invoice.hostedInvoiceUrl && (
-                      <Button variant="ghost" size="sm" asChild>
-                        <a
-                          href={invoice.hostedInvoiceUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1"
-                        >
-                          {t("view")} <ExternalLink className="h-3 w-3" />
-                        </a>
-                      </Button>
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))}
+              {invoices.map((invoice) => {
+                const invoiceProvider = invoice.provider || provider || "stripe";
+                const amount = invoice.amount / 100;
+
+                return (
+                  <TableRow key={invoice.id}>
+                    <TableCell>{format(invoice.createdAt, "PPP")}</TableCell>
+                    <TableCell>
+                      {invoiceProvider === "iyzico"
+                        ? formatTRY(amount)
+                        : formatCurrency(amount, invoice.currency)}
+                    </TableCell>
+                    <TableCell>
+                      <Badge
+                        variant={
+                          invoice.status === "paid"
+                            ? "default"
+                            : invoice.status === "open"
+                              ? "secondary"
+                              : "destructive"
+                        }
+                      >
+                        {invoice.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {invoice.hostedInvoiceUrl && (
+                        <Button variant="ghost" size="sm" asChild>
+                          <a
+                            href={invoice.hostedInvoiceUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1"
+                          >
+                            {t("view")} <ExternalLink className="h-3 w-3" />
+                          </a>
+                        </Button>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         )}

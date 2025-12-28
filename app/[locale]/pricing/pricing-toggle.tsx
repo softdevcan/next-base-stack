@@ -5,7 +5,9 @@ import { useTranslations } from "next-intl";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SUBSCRIPTION_PLANS, formatCurrency } from "@/lib/stripe";
+import { IYZICO_SUBSCRIPTION_PLANS, formatTRY } from "@/lib/iyzico-client";
 import type { Subscription } from "@/lib/db/schema";
 import { SubscribeButton } from "./subscribe-button";
 
@@ -18,16 +20,37 @@ interface PriceIds {
 
 export function PricingToggle({
   subscription,
-  priceIds
+  priceIds,
+  hasStripe,
+  hasIyzico,
 }: {
   subscription: Subscription | null | undefined;
   priceIds: PriceIds;
+  hasStripe: boolean;
+  hasIyzico: boolean;
 }) {
   const t = useTranslations("pricing");
   const [interval, setInterval] = useState<"monthly" | "yearly">("yearly");
+  const [provider, setProvider] = useState<"stripe" | "iyzico">(hasIyzico ? "iyzico" : "stripe");
+
+  // Get current pricing based on provider
+  const plans = provider === "iyzico" ? IYZICO_SUBSCRIPTION_PLANS : SUBSCRIPTION_PLANS;
+  const formatPrice = provider === "iyzico" ? formatTRY : formatCurrency;
 
   return (
     <div className="space-y-8">
+      {/* Payment Provider Selector (only show if both are available) */}
+      {hasStripe && hasIyzico && (
+        <div className="flex justify-center">
+          <Tabs value={provider} onValueChange={(v) => setProvider(v as "stripe" | "iyzico")}>
+            <TabsList className="grid w-[400px] grid-cols-2">
+              <TabsTrigger value="stripe">International (Stripe)</TabsTrigger>
+              <TabsTrigger value="iyzico">Türkiye (iyzico)</TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </div>
+      )}
+
       {/* Billing Interval Toggle */}
       <div className="flex justify-center items-center gap-4">
         <span
@@ -64,13 +87,13 @@ export function PricingToggle({
             <CardTitle className="text-2xl">{t("free.name")}</CardTitle>
             <CardDescription>{t("free.description")}</CardDescription>
             <div className="mt-4">
-              <span className="text-4xl font-bold">{formatCurrency(SUBSCRIPTION_PLANS.free.price)}</span>
+              <span className="text-4xl font-bold">{formatPrice(plans.free.price)}</span>
               <span className="text-muted-foreground">{t("perMonth")}</span>
             </div>
           </CardHeader>
           <CardContent>
             <ul className="space-y-3">
-              {SUBSCRIPTION_PLANS.free.features.map((feature) => (
+              {plans.free.features.map((feature) => (
                 <li key={feature} className="flex items-start gap-2">
                   <Check className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                   <span className="text-sm">{feature}</span>
@@ -103,10 +126,10 @@ export function PricingToggle({
             <CardDescription>{t("pro.description")}</CardDescription>
             <div className="mt-4">
               <span className="text-4xl font-bold">
-                {formatCurrency(
+                {formatPrice(
                   interval === "monthly"
-                    ? SUBSCRIPTION_PLANS.pro.monthly.price
-                    : Math.round(SUBSCRIPTION_PLANS.pro.yearly.price / 12),
+                    ? plans.pro.monthly.price
+                    : Math.round(plans.pro.yearly.price / 12),
                 )}
               </span>
               <span className="text-muted-foreground">{t("perMonth")}</span>
@@ -117,7 +140,7 @@ export function PricingToggle({
           </CardHeader>
           <CardContent>
             <ul className="space-y-3">
-              {SUBSCRIPTION_PLANS.pro.features.map((feature) => (
+              {plans.pro.features.map((feature) => (
                 <li key={feature} className="flex items-start gap-2">
                   <Check className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                   <span className="text-sm">{feature}</span>
@@ -131,6 +154,7 @@ export function PricingToggle({
               interval={interval}
               currentPlan={subscription?.plan}
               priceId={interval === "monthly" ? priceIds.proMonthly : priceIds.proYearly}
+              provider={provider}
             />
           </CardFooter>
         </Card>
@@ -142,10 +166,10 @@ export function PricingToggle({
             <CardDescription>{t("enterprise.description")}</CardDescription>
             <div className="mt-4">
               <span className="text-4xl font-bold">
-                {formatCurrency(
+                {formatPrice(
                   interval === "monthly"
-                    ? SUBSCRIPTION_PLANS.enterprise.monthly.price
-                    : Math.round(SUBSCRIPTION_PLANS.enterprise.yearly.price / 12),
+                    ? plans.enterprise.monthly.price
+                    : Math.round(plans.enterprise.yearly.price / 12),
                 )}
               </span>
               <span className="text-muted-foreground">{t("perMonth")}</span>
@@ -156,7 +180,7 @@ export function PricingToggle({
           </CardHeader>
           <CardContent>
             <ul className="space-y-3">
-              {SUBSCRIPTION_PLANS.enterprise.features.map((feature) => (
+              {plans.enterprise.features.map((feature) => (
                 <li key={feature} className="flex items-start gap-2">
                   <Check className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                   <span className="text-sm">{feature}</span>
@@ -170,6 +194,7 @@ export function PricingToggle({
               interval={interval}
               currentPlan={subscription?.plan}
               priceId={interval === "monthly" ? priceIds.enterpriseMonthly : priceIds.enterpriseYearly}
+              provider={provider}
             />
           </CardFooter>
         </Card>

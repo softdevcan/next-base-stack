@@ -12,6 +12,7 @@ import { CancelSubscriptionButton } from "./cancel-subscription-button";
 import { ResumeSubscriptionButton } from "./resume-subscription-button";
 import { InvoicesTable } from "./invoices-table";
 import { format } from "date-fns";
+import { Badge } from "@/components/ui/badge";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -34,11 +35,20 @@ export default async function BillingPage() {
 
   const t = await getTranslations("billing");
 
+  const provider = subscription?.provider || "stripe";
+
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
-        <p className="text-muted-foreground">{t("subtitle")}</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
+          <p className="text-muted-foreground">{t("subtitle")}</p>
+        </div>
+        {subscription && subscription.plan !== "free" && (
+          <Badge variant="outline" className="text-xs">
+            {provider === "iyzico" ? "iyzico" : "Stripe"}
+          </Badge>
+        )}
       </div>
 
       <Separator />
@@ -52,22 +62,36 @@ export default async function BillingPage() {
           <CardHeader>
             <CardTitle>{t("actions.managePortal")}</CardTitle>
             <CardDescription>
-              Update payment methods, view invoices, and manage your subscription
+              {provider === "iyzico"
+                ? "Aboneliğinizi ve fatura bilgilerinizi yönetin"
+                : "Update payment methods, view invoices, and manage your subscription"}
             </CardDescription>
           </CardHeader>
           <CardFooter className="flex flex-col sm:flex-row gap-4">
-            <ManageBillingButton />
-            {subscription.cancelAtPeriodEnd ? (
-              <ResumeSubscriptionButton />
+            {provider === "stripe" ? (
+              <>
+                <ManageBillingButton />
+                {subscription.cancelAtPeriodEnd ? (
+                  <ResumeSubscriptionButton />
+                ) : (
+                  isSubscriptionActive(subscription.status) && <CancelSubscriptionButton />
+                )}
+              </>
             ) : (
-              isSubscriptionActive(subscription.status) && <CancelSubscriptionButton />
+              <>
+                {subscription.cancelAtPeriodEnd ? (
+                  <ResumeSubscriptionButton provider="iyzico" />
+                ) : (
+                  isSubscriptionActive(subscription.status) && <CancelSubscriptionButton provider="iyzico" />
+                )}
+              </>
             )}
           </CardFooter>
         </Card>
       )}
 
       {/* Invoices */}
-      {invoices && invoices.length > 0 && <InvoicesTable invoices={invoices} />}
+      {invoices && invoices.length > 0 && <InvoicesTable invoices={invoices} provider={provider} />}
     </div>
   );
 }

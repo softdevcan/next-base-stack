@@ -17,8 +17,9 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { cancelSubscription } from "./actions";
+import { cancelIyzicoSubscription } from "./actions-iyzico";
 
-export function CancelSubscriptionButton() {
+export function CancelSubscriptionButton({ provider = "stripe" }: { provider?: "stripe" | "iyzico" }) {
   const t = useTranslations("billing");
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -26,10 +27,12 @@ export function CancelSubscriptionButton() {
 
   const handleCancel = () => {
     startTransition(async () => {
-      const result = await cancelSubscription();
+      const result = provider === "iyzico"
+        ? await cancelIyzicoSubscription()
+        : await cancelSubscription();
 
-      if (result.error) {
-        toast.error(result.error);
+      if (result && typeof result === "object" && "error" in result && result.error) {
+        toast.error(result.error as string);
         return;
       }
 

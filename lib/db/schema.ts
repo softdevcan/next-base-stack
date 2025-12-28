@@ -125,7 +125,8 @@ export const activityLogs = pgTable("activity_logs", {
 
 /**
  * Subscriptions table - User subscription information
- * Tracks user subscription status, plan, and Stripe customer ID
+ * Tracks user subscription status, plan, and payment provider details
+ * Supports multiple payment providers: Stripe (international) and iyzico (Turkey)
  */
 export const subscriptions = pgTable("subscriptions", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -133,11 +134,24 @@ export const subscriptions = pgTable("subscriptions", {
     .notNull()
     .unique()
     .references(() => users.id, { onDelete: "cascade" }),
+
+  // Payment provider: "stripe" or "iyzico"
+  provider: text("provider").default("stripe").notNull(),
+
+  // Stripe-specific fields
   stripeCustomerId: text("stripe_customer_id").unique(), // Stripe customer ID
   stripeSubscriptionId: text("stripe_subscription_id").unique(), // Stripe subscription ID
   stripePriceId: text("stripe_price_id"), // Stripe price ID for current plan
   stripeCurrentPeriodEnd: timestamp("stripe_current_period_end", { mode: "date" }), // Current period end date
+
+  // iyzico-specific fields
+  iyzicoSubscriptionReferenceCode: text("iyzico_subscription_reference_code").unique(), // iyzico subscription reference
+  iyzicoCustomerReferenceCode: text("iyzico_customer_reference_code"), // iyzico customer reference
+  iyzicoCurrentPeriodEnd: timestamp("iyzico_current_period_end", { mode: "date" }), // Current period end date
+
+  // Common fields (provider-agnostic)
   plan: text("plan").default("free").notNull(), // "free", "pro", "enterprise"
+  interval: text("interval"), // "monthly" or "yearly" (null for free plan)
   status: text("status").default("active").notNull(), // "active", "canceled", "past_due", "incomplete"
   cancelAtPeriodEnd: boolean("cancel_at_period_end").default(false).notNull(), // Whether to cancel at period end
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
@@ -146,14 +160,25 @@ export const subscriptions = pgTable("subscriptions", {
 
 /**
  * Payment Methods table - User saved payment methods
- * Stores Stripe payment method information
+ * Stores payment method information from Stripe or iyzico
  */
 export const paymentMethods = pgTable("payment_methods", {
   id: uuid("id").defaultRandom().primaryKey(),
   userId: uuid("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  stripePaymentMethodId: text("stripe_payment_method_id").notNull().unique(), // Stripe payment method ID
+
+  // Payment provider: "stripe" or "iyzico"
+  provider: text("provider").default("stripe").notNull(),
+
+  // Stripe-specific fields
+  stripePaymentMethodId: text("stripe_payment_method_id").unique(), // Stripe payment method ID
+
+  // iyzico-specific fields
+  iyzicoCardToken: text("iyzico_card_token").unique(), // iyzico card token
+  iyzicoCardUserKey: text("iyzico_card_user_key"), // iyzico card user key
+
+  // Common fields (provider-agnostic)
   type: text("type").notNull(), // "card", "sepa_debit", etc.
   last4: text("last4"), // Last 4 digits of card
   brand: text("brand"), // Card brand (visa, mastercard, etc.)
@@ -166,17 +191,28 @@ export const paymentMethods = pgTable("payment_methods", {
 
 /**
  * Invoices table - Invoice history
- * Stores Stripe invoice information for user reference
+ * Stores invoice information from Stripe or iyzico
  */
 export const invoices = pgTable("invoices", {
   id: uuid("id").defaultRandom().primaryKey(),
   userId: uuid("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  stripeInvoiceId: text("stripe_invoice_id").notNull().unique(), // Stripe invoice ID
-  stripeCustomerId: text("stripe_customer_id").notNull(), // Stripe customer ID
-  amount: integer("amount").notNull(), // Amount in cents
-  currency: text("currency").default("usd").notNull(), // Currency code
+
+  // Payment provider: "stripe" or "iyzico"
+  provider: text("provider").default("stripe").notNull(),
+
+  // Stripe-specific fields
+  stripeInvoiceId: text("stripe_invoice_id").unique(), // Stripe invoice ID
+  stripeCustomerId: text("stripe_customer_id"), // Stripe customer ID
+
+  // iyzico-specific fields
+  iyzicoPaymentId: text("iyzico_payment_id").unique(), // iyzico payment ID
+  iyzicoConversationId: text("iyzico_conversation_id"), // iyzico conversation ID
+
+  // Common fields (provider-agnostic)
+  amount: integer("amount").notNull(), // Amount in cents (for USD) or kuruş (for TRY)
+  currency: text("currency").default("usd").notNull(), // Currency code (USD or TRY)
   status: text("status").notNull(), // "draft", "open", "paid", "uncollectible", "void"
   invoicePdf: text("invoice_pdf"), // URL to invoice PDF
   hostedInvoiceUrl: text("hosted_invoice_url"), // URL to hosted invoice page

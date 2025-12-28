@@ -6,21 +6,38 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { createCheckoutSession } from "@/app/[locale]/(protected)/(settings)/billing/actions";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { IyzicoCheckoutForm } from "@/app/[locale]/(protected)/(settings)/billing/iyzico-checkout-form";
 
 interface SubscribeButtonProps {
   plan: "pro" | "enterprise";
   interval: "monthly" | "yearly";
   currentPlan?: string | null;
   priceId: string;
+  provider: "stripe" | "iyzico";
 }
 
-export function SubscribeButton({ plan, interval, currentPlan, priceId }: SubscribeButtonProps) {
+export function SubscribeButton({ plan, interval, currentPlan, priceId, provider }: SubscribeButtonProps) {
   const t = useTranslations("pricing");
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [isLoading, setIsLoading] = useState(false);
+  const [showIyzicoDialog, setShowIyzicoDialog] = useState(false);
 
   const handleSubscribe = () => {
+    // If iyzico, show payment form dialog
+    if (provider === "iyzico") {
+      setShowIyzicoDialog(true);
+      return;
+    }
+
+    // Stripe flow
     setIsLoading(true);
     startTransition(async () => {
       try {
@@ -57,8 +74,33 @@ export function SubscribeButton({ plan, interval, currentPlan, priceId }: Subscr
   }
 
   return (
-    <Button className="w-full" onClick={handleSubscribe} disabled={isLoading || isPending}>
-      {isLoading || isPending ? "Loading..." : t("choosePlan", { plan: t(`${plan}.name`) })}
-    </Button>
+    <>
+      <Button className="w-full" onClick={handleSubscribe} disabled={isLoading || isPending}>
+        {isLoading || isPending ? "Loading..." : t("choosePlan", { plan: t(`${plan}.name`) })}
+      </Button>
+
+      {/* iyzico Checkout Dialog */}
+      {provider === "iyzico" && (
+        <Dialog open={showIyzicoDialog} onOpenChange={setShowIyzicoDialog}>
+          <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>Ödeme Bilgileri</DialogTitle>
+              <DialogDescription>
+                {plan === "pro" ? "Pro" : "Enterprise"} planı için ödeme bilgilerinizi girin
+              </DialogDescription>
+            </DialogHeader>
+            <IyzicoCheckoutForm
+              plan={plan}
+              interval={interval}
+              onSuccess={() => {
+                setShowIyzicoDialog(false);
+                router.push("/billing?success=true");
+              }}
+              onCancel={() => setShowIyzicoDialog(false)}
+            />
+          </DialogContent>
+        </Dialog>
+      )}
+    </>
   );
 }

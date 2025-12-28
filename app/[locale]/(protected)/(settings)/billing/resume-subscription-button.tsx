@@ -6,18 +6,21 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { resumeSubscription } from "./actions";
+import { resumeIyzicoSubscription } from "./actions-iyzico";
 
-export function ResumeSubscriptionButton() {
+export function ResumeSubscriptionButton({ provider = "stripe" }: { provider?: "stripe" | "iyzico" }) {
   const t = useTranslations("billing");
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
   const handleResume = () => {
     startTransition(async () => {
-      const result = await resumeSubscription();
+      const result = provider === "iyzico"
+        ? await resumeIyzicoSubscription()
+        : await resumeSubscription();
 
-      if (result.error) {
-        toast.error(result.error);
+      if (result && typeof result === "object" && "error" in result && result.error) {
+        toast.error(result.error as string);
         return;
       }
 

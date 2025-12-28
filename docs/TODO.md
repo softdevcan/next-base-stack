@@ -17,12 +17,37 @@ Priority: 🔴 High Priority
 4. ✅ **Activity Log** - Track user login history and important account actions
 5. 📝 **Profile Picture Upload** - AWS S3/Cloudflare R2 integration with image optimization (Moved to later phase - requires external service setup)
 
-### Phase 3: Payment & Monetization (Next 4 Features) ✅ COMPLETED
+### Phase 3: Payment & Monetization - EXTENDED ✅ STRIPE COMPLETED 🚧 ADMIN & IYZICO IN PROGRESS
 Priority: 🔴 High Priority
+
+**Stripe Integration (COMPLETED)** ✅
 1. ✅ **Stripe Integration** - Setup Stripe account, API keys, and webhooks
 2. ✅ **Subscription Plans** - Create Free, Pro, and Enterprise tier plans
 3. ✅ **Payment Methods** - Credit card management and payment method updates
 4. ✅ **Billing Dashboard** - Invoice history, usage tracking, and plan management
+5. ✅ **Pricing Page** - Interactive pricing page with monthly/yearly toggle
+6. ✅ **Checkout Flow** - Stripe Checkout integration with success/cancel pages
+7. ✅ **Webhook Endpoint** - Handle Stripe events (subscription, payment, invoice)
+8. ✅ **DAL Queries** - Database queries for subscriptions, payment methods, invoices
+9. ✅ **i18n Support** - Full Turkish and English translations
+
+**Mini Admin Panel (COMPLETED)** ✅
+10. ✅ **Admin Dashboard** - Overview page with stats at `/[locale]/admin`
+11. ✅ **Revenue Overview** - Total revenue, MRR, active subscriptions
+12. ✅ **Recent Subscriptions** - Monitor last 5 subscriptions
+13. ✅ **Recent Users** - View last 10 registered users
+14. ✅ **Admin DAL Queries** - Secure queries for admin operations
+15. ✅ **i18n Support** - Full Turkish and English translations for admin panel
+
+**iyzico Integration (IN PROGRESS)** 🚧
+16. ✅ **iyzico Setup Documentation** - Comprehensive IYZICO_SETUP.md guide
+17. 📝 **iyzico SDK Integration** - Install and configure iyzipay package
+18. 📝 **Subscription Plans** - Create plans via iyzico API with reference codes
+19. 📝 **Payment Flow** - 3D Secure checkout and payment processing
+20. 📝 **Webhook Handler** - Handle iyzico subscription events
+21. 📝 **Database Updates** - Add provider field to subscriptions table
+22. 📝 **Billing Dashboard Variant** - iyzico-specific billing page
+23. 📝 **Payment Provider Switcher** - Admin toggle for Stripe/iyzico/Both
 
 ### Phase 4: Performance & Scalability (Next 4 Features)
 Priority: 🟡 Medium Priority
@@ -376,9 +401,10 @@ Priority: 🟢 Low Priority
 
 ### Quick Stats
 - **Total Phases**: 14
-- **Total Features**: 60+ features across all phases
-- **Completed**: Phases 1, 2, 3, 11 (16 features) ✅
-- **Next Up**: Phase 5 - Analytics & Monitoring (4 medium-priority features)
+- **Total Features**: 70+ features across all phases
+- **Completed**: Phases 1, 2, 11, and Stripe (Phase 3) - 25 features ✅
+- **In Progress**: Mini Admin & iyzico (Phase 3) - 10 features 🚧
+- **Next Up**: Complete Phase 3, then Phase 4 - Performance & Scalability
 
 ### Implementation Roadmap
 
@@ -433,4 +459,68 @@ Priority: 🟢 Low Priority
 - 🚧 In Progress - Currently being implemented
 - ✅ Completed - Fully implemented and tested
 
-**Last Updated**: 2025-12-21
+**Last Updated**: 2025-12-28
+
+---
+
+## 🎯 **PHASE 3 EXTENDED DETAILS**
+
+### Stripe Integration Features (COMPLETED) ✅
+
+All Stripe features are production-ready and fully documented:
+
+- **Setup Documentation**: Comprehensive [STRIPE_SETUP.md](setups/STRIPE_SETUP.md) with step-by-step guide
+- **Database Schema**: subscriptions, payment_methods, invoices tables
+- **Environment Variables**: Full validation with @t3-oss/env-nextjs
+- **Pricing Configuration**: $9.99/mo Pro, $29.99/mo Enterprise (17% yearly discount)
+- **Pricing Page**: Interactive page at `/[locale]/pricing` with monthly/yearly toggle
+- **Checkout Flow**: Stripe Checkout integration with Server Actions
+- **Billing Dashboard**: Full-featured dashboard at `/[locale]/dashboard/billing`
+  - Current plan display with status
+  - Cancel/Resume subscription
+  - Payment method management
+  - Invoice history
+  - Manage Billing (Stripe Customer Portal)
+- **Webhook Endpoint**: `/api/webhooks/stripe` handles all subscription events
+  - checkout.session.completed
+  - customer.subscription.created/updated/deleted
+  - invoice.payment_succeeded/failed
+  - Full signature verification
+- **DAL Queries**: Type-safe queries with auth checks for subscriptions, payment methods, invoices
+- **i18n**: Full Turkish and English translations
+
+### Mini Admin Panel (COMPLETED) ✅
+
+Simple admin dashboard for basic user and subscription management:
+
+- **URL**: `/[locale]/admin` (admin-only route)
+- **Features Implemented**:
+  - ✅ Dashboard with 4 key metrics (users, subscriptions, revenue, MRR)
+  - ✅ Revenue tracking with total revenue and MRR calculations
+  - ✅ Recent subscriptions display (last 5)
+  - ✅ Recent users display (last 10 with role badges)
+  - ✅ Admin-specific DAL queries with built-in auth checks
+  - ✅ Full i18n support (Turkish and English)
+- **Authorization**: Role-based (only `role: "admin"` can access via `requireAdmin()`)
+
+### iyzico Integration (IN PROGRESS) 🚧
+
+Full-featured payment integration for Turkish market:
+
+- **Documentation**: ✅ Comprehensive [IYZICO_SETUP.md](setups/IYZICO_SETUP.md) guide (English)
+  - Account setup and API keys
+  - Subscription plan creation via API
+  - 3D Secure implementation guide
+  - Webhook setup and signature verification
+  - Test cards and sandbox testing
+  - Production checklist
+  - Comparison with Stripe
+- **Planned Features**:
+  - 📝 iyzico SDK integration (`iyzipay` npm package)
+  - 📝 Subscription plan management
+  - 📝 3D Secure payment flow with redirect handling
+  - 📝 Webhook endpoint (`/api/webhooks/iyzico`)
+  - 📝 Database provider field to support multi-provider
+  - 📝 Billing dashboard variant for iyzico users
+  - 📝 Admin payment provider switcher (Stripe/iyzico/Both)
+  - 📝 Geographic auto-detection (Turkey → iyzico, Others → Stripe)
