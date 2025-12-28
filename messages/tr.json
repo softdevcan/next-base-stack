@@ -18,6 +18,7 @@
     "profile": "Profil",
     "account": "Hesap",
     "security": "Güvenlik",
+    "data": "Veri Dışa Aktarımı",
     "settings": "Ayarlar",
     "billing": "Ödeme",
     "login": "Giriş Yap",
@@ -204,11 +205,96 @@
       "current": "Mevcut Plan",
       "free": "Ücretsiz",
       "pro": "Pro",
-      "enterprise": "Kurumsal"
+      "enterprise": "Kurumsal",
+      "status": "Durum",
+      "active": "Aktif",
+      "canceled": "İptal Edildi",
+      "pastDue": "Vadesi Geçmiş",
+      "renewsOn": "{date} tarihinde yenilenir",
+      "expiresOn": "{date} tarihinde sona erer",
+      "canceledOn": "{date} tarihinde iptal edildi"
     },
     "payment": {
       "method": "Ödeme Yöntemi",
-      "addCard": "Kart Ekle"
+      "addCard": "Kart Ekle",
+      "manage": "Ödeme Yöntemlerini Yönet"
+    },
+    "actions": {
+      "upgrade": "Planı Yükselt",
+      "changePlan": "Plan Değiştir",
+      "cancel": "Aboneliği İptal Et",
+      "resume": "Aboneliği Devam Ettir",
+      "managePortal": "Ödeme Yönetimi"
+    },
+    "cancel": {
+      "title": "Aboneliği İptal Et",
+      "description": "Aboneliğiniz mevcut fatura döneminin sonuna kadar aktif kalacak",
+      "confirm": "Evet, Aboneliği İptal Et",
+      "success": "Abonelik başarıyla iptal edildi"
+    },
+    "resume": {
+      "success": "Abonelik başarıyla devam ettirildi"
+    },
+    "invoices": {
+      "title": "Fatura Geçmişi",
+      "description": "Geçmiş faturalarınızı görüntüleyin ve indirin",
+      "date": "Tarih",
+      "amount": "Tutar",
+      "status": "Durum",
+      "download": "İndir",
+      "view": "Görüntüle",
+      "noInvoices": "Henüz fatura yok"
+    }
+  },
+  "pricing": {
+    "title": "Planınızı Seçin",
+    "subtitle": "İhtiyaçlarınıza uygun planı seçin",
+    "monthly": "Aylık",
+    "yearly": "Yıllık",
+    "yearlyDiscount": "Yıllık faturalama ile %20 tasarruf edin",
+    "perMonth": "/ay",
+    "perYear": "/yıl",
+    "billedMonthly": "Aylık fatura",
+    "billedYearly": "Yıllık fatura",
+    "currentPlan": "Mevcut Plan",
+    "popular": "Popüler",
+    "getStarted": "Başla",
+    "choosePlan": "{plan} Seç",
+    "features": "Özellikler",
+    "free": {
+      "name": "Ücretsiz",
+      "description": "Temel özelliklerle başlayın",
+      "features": [
+        "Temel özellikler",
+        "Topluluk desteği",
+        "5 proje limiti",
+        "1 GB depolama"
+      ]
+    },
+    "pro": {
+      "name": "Pro",
+      "description": "Profesyoneller ve küçük ekipler için mükemmel",
+      "features": [
+        "Tüm Ücretsiz özellikler",
+        "Sınırsız proje",
+        "10 GB depolama",
+        "Öncelikli e-posta desteği",
+        "Gelişmiş analitik",
+        "Özel markalama"
+      ]
+    },
+    "enterprise": {
+      "name": "Kurumsal",
+      "description": "Büyük ekipler ve kuruluşlar için",
+      "features": [
+        "Tüm Pro özellikler",
+        "Sınırsız depolama",
+        "7/24 telefon ve e-posta desteği",
+        "Özel hesap yöneticisi",
+        "Özel entegrasyonlar",
+        "SLA garantisi",
+        "Gelişmiş güvenlik özellikleri"
+      ]
     }
   },
   "legal": {
@@ -231,6 +317,183 @@
       "title": "Sunucu Hatası",
       "description": "Bir şeyler ters gitti",
       "tryAgain": "Tekrar Dene"
+    }
+  },
+  "dataExportPage": {
+    "title": "Veri Dışa Aktarımı",
+    "subtitle": "GDPR uyarınca kişisel verilerinizi indirin"
+  },
+  "dataExport": {
+    "title": "Verilerinizi Dışa Aktarın",
+    "description": "Sistemimizde saklanan tüm kişisel verilerinizin bir kopyasını indirin. Bu, profil bilgilerinizi, tercihlerinizi ve bağlı hesaplarınızı içerir.",
+    "formatLabel": "Dışa aktarım formatını seçin",
+    "formats": {
+      "json": "Yapılandırılmış veri formatı, geliştiriciler ve veri işleme için ideal",
+      "csv": "Elektronik tablo formatı, Excel veya Google Sheets'te görüntülemek kolay"
+    },
+    "includes": {
+      "title": "Dışa aktarımınız şunları içerecek:",
+      "profile": "Kişisel bilgiler (ad, e-posta, rol)",
+      "account": "Hesap detayları ve doğrulama durumu",
+      "preferences": "Ayarlar ve bildirim tercihleri",
+      "oauth": "Bağlı sosyal hesaplar (OAuth sağlayıcıları)",
+      "excluded": "Not: Şifreler ve güvenlik belirteçleri korumanız için hariç tutulmuştur."
+    },
+    "exportButton": "Verilerimi İndir",
+    "exporting": "Dışa aktarım hazırlanıyor...",
+    "toast": {
+      "exportSuccess": "Veriler başarıyla dışa aktarıldı",
+      "exportError": "Veri dışa aktarımı başarısız oldu. Lütfen tekrar deneyin."
+    }
+  },
+  "activityLog": {
+    "title": "Etkinlik Günlüğü",
+    "subtitle": "Hesap etkinliklerinizi ve giriş geçmişinizi görüntüleyin",
+    "recentActivity": "Son Etkinlikler",
+    "recentActivityDescription": "Hesabınızda gerçekleştirilen tüm önemli işlemlerin kaydı",
+    "noActivity": "Henüz kayıtlı etkinlik yok"
+  },
+  "footer": {
+    "brandName": "Next Base Stack",
+    "brandDescription": "Tam donanımlı Next.js launchpad'imizle modern web uygulamanızı hızla başlatın",
+    "sections": {
+      "product": "Ürün",
+      "company": "Şirket",
+      "legal": "Yasal"
+    },
+    "links": {
+      "features": "Özellikler",
+      "pricing": "Fiyatlandırma",
+      "documentation": "Dokümantasyon",
+      "about": "Hakkımızda",
+      "contact": "İletişim",
+      "blog": "Blog",
+      "privacy": "Gizlilik Politikası",
+      "terms": "Kullanım Koşulları",
+      "cookies": "Çerez Politikası"
+    },
+    "social": {
+      "github": "GitHub",
+      "twitter": "Twitter",
+      "linkedin": "LinkedIn"
+    },
+    "copyright": "Tüm hakları saklıdır.",
+    "madeWith": "İle yapıldı"
+  },
+  "about": {
+    "hero": {
+      "title": "Hakkımızda",
+      "subtitle": "Her seferinde bir stack ile web geliştirmenin geleceğini inşa ediyoruz"
+    },
+    "story": {
+      "title": "Hikayemiz",
+      "paragraph1": "Basit bir misyonla başladık: geliştiricilerin kurulum ve yapılandırmaya haftalar harcamadan üretime hazır web uygulamaları oluşturmasını kolaylaştırmak.",
+      "paragraph2": "Sayısız web uygulaması geliştirdikten ve aynı kurulum sürecini tekrar tekrar yaptıktan sonra, nihai launchpad'i oluşturmaya karar verdik - başlamak için ihtiyacınız olan her şeyi içeren bir Next.js base stack.",
+      "paragraph3": "Bugün binlerce geliştirici, fikirlerini daha hızlı hayata geçirmek ve en önemli şeye odaklanmak için stack'imizi kullanıyor: harika ürünler geliştirmek."
+    },
+    "values": {
+      "title": "Değerlerimiz",
+      "speed": {
+        "title": "Hız Öncelikli",
+        "description": "Geliştirici hızı için optimize ediyoruz. Önceden yapılandırılmış stack'imizle fikirlerinizi üretime daha hızlı taşıyın."
+      },
+      "security": {
+        "title": "Yerleşik Güvenlik",
+        "description": "Güvenlik sonradan aklımıza gelmiyor. İlk günden itibaren en iyi uygulamaları hayata geçiriyoruz."
+      },
+      "quality": {
+        "title": "Kod Kalitesi",
+        "description": "TypeScript, düzgün test ve modern geliştirme uygulamalarıyla temiz, sürdürülebilir kod."
+      },
+      "open": {
+        "title": "Açık ve Şeffaf",
+        "description": "Açık kaynak, net dokümantasyon ve geliştirmeye topluluk odaklı yaklaşım."
+      }
+    },
+    "cta": {
+      "title": "Başlamaya Hazır Mısınız?",
+      "subtitle": "Harika ürünler geliştiren binlerce geliştiriciye katılın",
+      "getStarted": "Hemen Başla",
+      "contactUs": "Bize Ulaşın"
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "İletişime Geçin",
+      "subtitle": "Sorularınız mı var? Sizden haber almayı çok isteriz. Bize bir mesaj gönderin, en kısa sürede yanıt verelim."
+    },
+    "form": {
+      "title": "Bize Mesaj Gönderin",
+      "description": "Aşağıdaki formu doldurun, 24 saat içinde size geri dönelim",
+      "fields": {
+        "name": {
+          "label": "Ad Soyad",
+          "placeholder": "Ahmet Yılmaz"
+        },
+        "email": {
+          "label": "E-posta",
+          "placeholder": "ahmet@ornek.com"
+        },
+        "subject": {
+          "label": "Konu",
+          "placeholder": "Nasıl yardımcı olabiliriz?"
+        },
+        "message": {
+          "label": "Mesaj",
+          "placeholder": "Sorunuz hakkında bize daha fazla bilgi verin..."
+        }
+      },
+      "submit": "Mesaj Gönder",
+      "submitting": "Gönderiliyor...",
+      "toast": {
+        "success": "Mesaj başarıyla gönderildi! En kısa sürede size dönüş yapacağız.",
+        "error": "Mesaj gönderilemedi. Lütfen tekrar deneyin."
+      }
+    },
+    "info": {
+      "title": "İletişim Bilgileri",
+      "description": "Bu kanallardan herhangi biri üzerinden bize ulaşın"
+    },
+    "methods": {
+      "email": {
+        "title": "E-posta",
+        "value": "merhaba@ornek.com"
+      },
+      "phone": {
+        "title": "Telefon",
+        "value": "+90 (555) 123-4567"
+      },
+      "address": {
+        "title": "Ofis",
+        "value": "Örnek Mah. No:123, İstanbul 34000"
+      }
+    },
+    "hours": {
+      "title": "Çalışma Saatleri",
+      "weekdays": "Pazartesi - Cuma",
+      "weekdaysTime": "09:00 - 18:00",
+      "weekend": "Cumartesi - Pazar",
+      "weekendTime": "Kapalı"
+    }
+  },
+  "cookies": {
+    "banner": {
+      "title": "Çerez Tercihleri",
+      "description": "Tarayıcı deneyiminizi geliştirmek ve trafiğimizi analiz etmek için çerezler kullanıyoruz. Lütfen hangi çerezlere izin verdiğinizi seçin.",
+      "necessary": "Gerekli Çerezler",
+      "necessaryDescription": "Web sitesinin düzgün çalışması için gereklidir. Bu çerezler devre dışı bırakılamaz.",
+      "functional": "İşlevsel Çerezler",
+      "functionalDescription": "Dil tercihleri ve tema ayarları gibi gelişmiş işlevsellik ve kişiselleştirme sağlar.",
+      "analytics": "Analitik Çerezler",
+      "analyticsDescription": "Anonim bilgiler toplayarak ziyaretçilerin web sitemizle nasıl etkileşime girdiğini anlamamıza yardımcı olur.",
+      "marketing": "Pazarlama Çerezleri",
+      "marketingDescription": "İlgili reklamları görüntülemek için ziyaretçileri web siteleri arasında takip etmek için kullanılır.",
+      "acceptAll": "Tümünü Kabul Et",
+      "acceptSelected": "Seçilenleri Kabul Et",
+      "rejectAll": "Tümünü Reddet",
+      "customize": "Özelleştir",
+      "privacyPolicy": "Gizlilik Politikamızı Görüntüle",
+      "close": "Kapat"
     }
   }
 }

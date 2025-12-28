@@ -1,7 +1,7 @@
 import "server-only";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
-import { profiles, users } from "@/lib/db/schema";
+import { accounts, profiles, users } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { cache } from "react";
 
@@ -96,4 +96,61 @@ export const updateCurrentUserProfile = async (data: {
   }
 
   return true;
+};
+
+/**
+ * DAL: Export all user data (GDPR compliance)
+ * Returns comprehensive user data including profile and connected accounts
+ */
+export const exportUserData = async () => {
+  const session = await auth();
+  if (!session?.user?.id) throw new Error("Unauthorized");
+
+  const userId = session.user.id;
+
+  // Get user data
+  const [user] = await db.select().from(users).where(eq(users.id, userId)).limit(1);
+
+  if (!user) throw new Error("User not found");
+
+  // Get profile data
+  const [profile] = await db.select().from(profiles).where(eq(profiles.userId, userId)).limit(1);
+
+  // Get connected accounts (OAuth providers)
+  const connectedAccounts = await db
+    .select({
+      provider: accounts.provider,
+      type: accounts.type,
+      createdAt: accounts.id, // We don't expose sensitive tokens
+    })
+    .from(accounts)
+    .where(eq(accounts.userId, userId));
+
+  // Sanitize data - remove sensitive fields
+  const sanitizedUser = {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    emailVerified: user.emailVerified,
+    image: user.image,
+    role: user.role,
+    twoFactorEnabled: user.twoFactorEnabled,
+    createdAt: user.createdAt,
+    updatedAt: user.updatedAt,
+    // Exclude: password, twoFactorSecret, twoFactorBackupCodes
+  };
+
+  const exportData = {
+    user: sanitizedUser,
+    profile: profile || null,
+    connectedAccounts: connectedAccounts.map((acc) => ({
+      provider: acc.provider,
+      type: acc.type,
+    })),
+    exportDate: new Date().toISOString(),
+    dataRetentionNotice:
+      "This export contains all personal data we store about you. You have the right to request deletion of this data at any time.",
+  };
+
+  return exportData;
 };

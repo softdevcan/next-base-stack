@@ -3,6 +3,8 @@
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
+import { getClientIP } from "@/lib/ip";
+import { sendAccountDeletionScheduledEmail, sendPasswordChangedEmail } from "@/lib/mail";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
@@ -65,6 +67,10 @@ export async function changePasswordAction(formData: FormData) {
       })
       .where(eq(users.id, session.user.id));
 
+    // Send password changed notification email
+    const ipAddress = await getClientIP();
+    await sendPasswordChangedEmail(user.email, user.name ?? undefined, ipAddress);
+
     revalidatePath("/account");
 
     return { success: true };
@@ -116,6 +122,14 @@ export async function deleteAccountAction(formData: FormData) {
         return { error: "Password is incorrect" };
       }
     }
+
+    // Send account deletion scheduled email (before actual deletion)
+    const scheduledDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days from now
+    const formattedDate = scheduledDate.toLocaleString("tr-TR", {
+      dateStyle: "long",
+      timeStyle: "short",
+    });
+    await sendAccountDeletionScheduledEmail(user.email, formattedDate, user.name ?? undefined);
 
     // Delete related data (cascade delete)
     const { profiles, verificationTokens } = await import("@/lib/db/schema");

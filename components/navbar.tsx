@@ -21,6 +21,11 @@ export async function Navbar({ locale }: { locale: string }) {
         </Link>
 
         <div className="flex items-center gap-3">
+          <Link href={`/${locale}/pricing`}>
+            <Button variant="ghost" size="sm">
+              Pricing
+            </Button>
+          </Link>
           {session?.user ? (
             <>
               <Link href={`/${locale}/dashboard`}>

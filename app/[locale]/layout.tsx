@@ -16,8 +16,7 @@ export function generateStaticParams() {
 }
 
 import { ThemeProvider } from "@/components/theme-provider";
-
-// ... existing code ...
+import { CookieConsentProvider } from "@/components/cookie-consent-provider";
 
 export default async function LocaleLayout({
   children,
@@ -45,6 +44,7 @@ export default async function LocaleLayout({
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
             <Toaster richColors position="top-center" />
+            <CookieConsentProvider locale={locale} />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

@@ -4,6 +4,8 @@ import { auth } from "@/auth";
 import { generateBackupCodes, generateTOTPSecret, verifyTOTPToken } from "@/lib/2fa";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
+import { getClientIP } from "@/lib/ip";
+import { sendTwoFactorDisabledEmail, sendTwoFactorEnabledEmail } from "@/lib/mail";
 import { eq } from "drizzle-orm";
 import QRCode from "qrcode";
 
@@ -31,7 +33,7 @@ export async function setup2FAAction() {
 export async function verify2FASetupAction(formData: FormData) {
   const session = await auth();
 
-  if (!session?.user?.id) {
+  if (!session?.user?.id || !session?.user?.email) {
     return { success: false, error: "Unauthorized" };
   }
 
@@ -61,6 +63,15 @@ export async function verify2FASetupAction(formData: FormData) {
       twoFactorBackupCodes: JSON.stringify(hashedCodes),
     })
     .where(eq(users.id, session.user.id));
+
+  // Send 2FA enabled notification email
+  const ipAddress = await getClientIP();
+  await sendTwoFactorEnabledEmail(
+    session.user.email,
+    "totp",
+    session.user.name ?? undefined,
+    ipAddress,
+  );
 
   return {
     success: true,
@@ -104,6 +115,10 @@ export async function disable2FAAction(formData: FormData) {
       twoFactorBackupCodes: null,
     })
     .where(eq(users.id, session.user.id));
+
+  // Send 2FA disabled notification email
+  const ipAddress = await getClientIP();
+  await sendTwoFactorDisabledEmail(user.email, user.name ?? undefined, ipAddress);
 
   return { success: true };
 }

@@ -75,6 +75,39 @@ if (!result.success) {
 }
 ```
 
+### CSRF Protection
+- Next.js Server Actions have built-in CSRF protection
+- Middleware validates origin headers for state-changing requests
+- For critical operations, use explicit CSRF token validation
+
+```typescript
+// For highly sensitive operations (account deletion, payments, etc.)
+import { CsrfInput } from "@/components/csrf-input";
+import { validateCsrfAction } from "@/lib/csrf";
+
+// In your form component:
+<form action={criticalAction}>
+  <CsrfInput />
+  {/* ... form fields */}
+</form>
+
+// In your Server Action:
+"use server";
+
+export async function criticalAction(formData: FormData) {
+  // Validate CSRF token
+  await validateCsrfAction(formData.get("csrf_token") as string);
+
+  // Validate session
+  const session = await auth();
+  if (!session?.user?.id) throw new Error("Unauthorized");
+
+  // ... proceed with critical operation
+}
+```
+
+See [CSRF_PROTECTION.md](docs/CSRF_PROTECTION.md) for detailed documentation.
+
 ## 🗄️ Database Standards
 
 ### Primary Keys: UUIDv7

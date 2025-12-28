@@ -22,6 +22,14 @@ export const env = createEnv({
 
     // Email Service (Resend)
     RESEND_API_KEY: z.string().optional(),
+
+    // Stripe (Payment & Subscriptions)
+    STRIPE_SECRET_KEY: z.string().min(1),
+    STRIPE_WEBHOOK_SECRET: z.string().min(1),
+    STRIPE_PRO_MONTHLY_PRICE_ID: z.string().min(1),
+    STRIPE_PRO_YEARLY_PRICE_ID: z.string().min(1),
+    STRIPE_ENTERPRISE_MONTHLY_PRICE_ID: z.string().min(1),
+    STRIPE_ENTERPRISE_YEARLY_PRICE_ID: z.string().min(1),
   },
   client: {
     // Supabase (Public - Client-side)
@@ -30,6 +38,9 @@ export const env = createEnv({
 
     // Application
     NEXT_PUBLIC_APP_URL: z.string().url(),
+
+    // Stripe (Public - Client-side)
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1),
   },
   runtimeEnv: {
     // Supabase
@@ -53,6 +64,15 @@ export const env = createEnv({
 
     // Email Service
     RESEND_API_KEY: process.env.RESEND_API_KEY,
+
+    // Stripe
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+    STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
+    STRIPE_PRO_MONTHLY_PRICE_ID: process.env.STRIPE_PRO_MONTHLY_PRICE_ID,
+    STRIPE_PRO_YEARLY_PRICE_ID: process.env.STRIPE_PRO_YEARLY_PRICE_ID,
+    STRIPE_ENTERPRISE_MONTHLY_PRICE_ID: process.env.STRIPE_ENTERPRISE_MONTHLY_PRICE_ID,
+    STRIPE_ENTERPRISE_YEARLY_PRICE_ID: process.env.STRIPE_ENTERPRISE_YEARLY_PRICE_ID,
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
 
     // Application
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,

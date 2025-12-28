@@ -18,6 +18,7 @@
     "profile": "Profile",
     "account": "Account",
     "security": "Security",
+    "data": "Data Export",
     "settings": "Settings",
     "billing": "Billing",
     "login": "Login",
@@ -207,11 +208,96 @@
       "current": "Current Plan",
       "free": "Free",
       "pro": "Pro",
-      "enterprise": "Enterprise"
+      "enterprise": "Enterprise",
+      "status": "Status",
+      "active": "Active",
+      "canceled": "Canceled",
+      "pastDue": "Past Due",
+      "renewsOn": "Renews on {date}",
+      "expiresOn": "Expires on {date}",
+      "canceledOn": "Canceled on {date}"
     },
     "payment": {
       "method": "Payment Method",
-      "addCard": "Add Card"
+      "addCard": "Add Card",
+      "manage": "Manage Payment Methods"
+    },
+    "actions": {
+      "upgrade": "Upgrade Plan",
+      "changePlan": "Change Plan",
+      "cancel": "Cancel Subscription",
+      "resume": "Resume Subscription",
+      "managePortal": "Manage Billing"
+    },
+    "cancel": {
+      "title": "Cancel Subscription",
+      "description": "Your subscription will remain active until the end of the current billing period",
+      "confirm": "Yes, Cancel Subscription",
+      "success": "Subscription canceled successfully"
+    },
+    "resume": {
+      "success": "Subscription resumed successfully"
+    },
+    "invoices": {
+      "title": "Invoice History",
+      "description": "View and download your past invoices",
+      "date": "Date",
+      "amount": "Amount",
+      "status": "Status",
+      "download": "Download",
+      "view": "View",
+      "noInvoices": "No invoices yet"
+    }
+  },
+  "pricing": {
+    "title": "Choose Your Plan",
+    "subtitle": "Select the perfect plan for your needs",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "yearlyDiscount": "Save 20% with yearly billing",
+    "perMonth": "/month",
+    "perYear": "/year",
+    "billedMonthly": "Billed monthly",
+    "billedYearly": "Billed yearly",
+    "currentPlan": "Current Plan",
+    "popular": "Popular",
+    "getStarted": "Get Started",
+    "choosePlan": "Choose {plan}",
+    "features": "Features",
+    "free": {
+      "name": "Free",
+      "description": "Get started with basic features",
+      "features": [
+        "Basic features",
+        "Community support",
+        "5 projects limit",
+        "1 GB storage"
+      ]
+    },
+    "pro": {
+      "name": "Pro",
+      "description": "Perfect for professionals and small teams",
+      "features": [
+        "All Free features",
+        "Unlimited projects",
+        "10 GB storage",
+        "Priority email support",
+        "Advanced analytics",
+        "Custom branding"
+      ]
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "description": "For large teams and organizations",
+      "features": [
+        "All Pro features",
+        "Unlimited storage",
+        "24/7 phone & email support",
+        "Dedicated account manager",
+        "Custom integrations",
+        "SLA guarantee",
+        "Advanced security features"
+      ]
     }
   },
   "legal": {
@@ -234,6 +320,183 @@
       "title": "Server Error",
       "description": "Something went wrong",
       "tryAgain": "Try Again"
+    }
+  },
+  "dataExportPage": {
+    "title": "Data Export",
+    "subtitle": "Download your personal data in accordance with GDPR"
+  },
+  "dataExport": {
+    "title": "Export Your Data",
+    "description": "Download a copy of all your personal data stored in our system. This includes your profile information, preferences, and connected accounts.",
+    "formatLabel": "Choose export format",
+    "formats": {
+      "json": "Structured data format, ideal for developers and data processing",
+      "csv": "Spreadsheet format, easy to view in Excel or Google Sheets"
+    },
+    "includes": {
+      "title": "Your export will include:",
+      "profile": "Personal information (name, email, role)",
+      "account": "Account details and verification status",
+      "preferences": "Settings and notification preferences",
+      "oauth": "Connected social accounts (OAuth providers)",
+      "excluded": "Note: Passwords and security tokens are excluded for your protection."
+    },
+    "exportButton": "Download My Data",
+    "exporting": "Preparing export...",
+    "toast": {
+      "exportSuccess": "Data exported successfully",
+      "exportError": "Failed to export data. Please try again."
+    }
+  },
+  "activityLog": {
+    "title": "Activity Log",
+    "subtitle": "View your account activity and login history",
+    "recentActivity": "Recent Activity",
+    "recentActivityDescription": "A log of all important actions performed on your account",
+    "noActivity": "No activity recorded yet"
+  },
+  "footer": {
+    "brandName": "Next Base Stack",
+    "brandDescription": "Launch your modern web app fast with our full-featured Next.js launchpad",
+    "sections": {
+      "product": "Product",
+      "company": "Company",
+      "legal": "Legal"
+    },
+    "links": {
+      "features": "Features",
+      "pricing": "Pricing",
+      "documentation": "Documentation",
+      "about": "About",
+      "contact": "Contact",
+      "blog": "Blog",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Policy"
+    },
+    "social": {
+      "github": "GitHub",
+      "twitter": "Twitter",
+      "linkedin": "LinkedIn"
+    },
+    "copyright": "All rights reserved.",
+    "madeWith": "Made with"
+  },
+  "about": {
+    "hero": {
+      "title": "About Us",
+      "subtitle": "Building the future of web development, one stack at a time"
+    },
+    "story": {
+      "title": "Our Story",
+      "paragraph1": "We started with a simple mission: make it easier for developers to build production-ready web applications without spending weeks on setup and configuration.",
+      "paragraph2": "After building countless web apps and repeating the same setup process over and over, we decided to create the ultimate launchpad - a Next.js base stack that includes everything you need to get started.",
+      "paragraph3": "Today, thousands of developers use our stack to launch their ideas faster, focusing on what matters most: building great products."
+    },
+    "values": {
+      "title": "Our Values",
+      "speed": {
+        "title": "Speed First",
+        "description": "We optimize for developer velocity. Get your ideas to production faster with our pre-configured stack."
+      },
+      "security": {
+        "title": "Security Built-in",
+        "description": "Security isn't an afterthought. We implement best practices from day one."
+      },
+      "quality": {
+        "title": "Code Quality",
+        "description": "Clean, maintainable code with TypeScript, proper testing, and modern development practices."
+      },
+      "open": {
+        "title": "Open & Transparent",
+        "description": "Open source, clear documentation, and a community-driven approach to development."
+      }
+    },
+    "cta": {
+      "title": "Ready to Get Started?",
+      "subtitle": "Join thousands of developers building amazing products",
+      "getStarted": "Get Started",
+      "contactUs": "Contact Us"
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "Get in Touch",
+      "subtitle": "Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible."
+    },
+    "form": {
+      "title": "Send us a Message",
+      "description": "Fill out the form below and we'll get back to you within 24 hours",
+      "fields": {
+        "name": {
+          "label": "Name",
+          "placeholder": "John Doe"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "john@example.com"
+        },
+        "subject": {
+          "label": "Subject",
+          "placeholder": "How can we help?"
+        },
+        "message": {
+          "label": "Message",
+          "placeholder": "Tell us more about your inquiry..."
+        }
+      },
+      "submit": "Send Message",
+      "submitting": "Sending...",
+      "toast": {
+        "success": "Message sent successfully! We'll get back to you soon.",
+        "error": "Failed to send message. Please try again."
+      }
+    },
+    "info": {
+      "title": "Contact Information",
+      "description": "Reach out to us through any of these channels"
+    },
+    "methods": {
+      "email": {
+        "title": "Email",
+        "value": "hello@example.com"
+      },
+      "phone": {
+        "title": "Phone",
+        "value": "+1 (555) 123-4567"
+      },
+      "address": {
+        "title": "Office",
+        "value": "123 Main St, San Francisco, CA 94105"
+      }
+    },
+    "hours": {
+      "title": "Business Hours",
+      "weekdays": "Monday - Friday",
+      "weekdaysTime": "9:00 AM - 6:00 PM PST",
+      "weekend": "Saturday - Sunday",
+      "weekendTime": "Closed"
+    }
+  },
+  "cookies": {
+    "banner": {
+      "title": "Cookie Preferences",
+      "description": "We use cookies to enhance your browsing experience and analyze our traffic. Please choose which cookies you consent to.",
+      "necessary": "Necessary Cookies",
+      "necessaryDescription": "Required for the website to function properly. These cookies cannot be disabled.",
+      "functional": "Functional Cookies",
+      "functionalDescription": "Enable enhanced functionality and personalization, such as language preferences and theme settings.",
+      "analytics": "Analytics Cookies",
+      "analyticsDescription": "Help us understand how visitors interact with our website by collecting anonymous information.",
+      "marketing": "Marketing Cookies",
+      "marketingDescription": "Used to track visitors across websites to display relevant advertisements.",
+      "acceptAll": "Accept All",
+      "acceptSelected": "Accept Selected",
+      "rejectAll": "Reject All",
+      "customize": "Customize",
+      "privacyPolicy": "View our Privacy Policy",
+      "close": "Close"
     }
   }
 }

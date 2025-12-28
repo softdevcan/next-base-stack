@@ -1,3 +1,4 @@
+import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
@@ -51,6 +52,9 @@ export default async function HomePage({
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <Footer locale={locale} />
     </div>
   );
 }

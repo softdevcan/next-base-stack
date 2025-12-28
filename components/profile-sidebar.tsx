@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Bell, Palette, Settings, Shield, User } from "lucide-react";
+import { CreditCard, Database, Settings, Shield, User } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
@@ -24,6 +24,18 @@ const sidebarItems = [
     icon: Shield,
     translationKey: "security",
     href: "/security",
+  },
+  {
+    key: "billing",
+    icon: CreditCard,
+    translationKey: "billing",
+    href: "/billing",
+  },
+  {
+    key: "data",
+    icon: Database,
+    translationKey: "data",
+    href: "/data",
   },
 ] as const;
 
